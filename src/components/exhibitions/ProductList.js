@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 
 export default class ProductList extends Component {
   render() {
@@ -12,5 +12,8 @@ export default class ProductList extends Component {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {}
+  wrapper: {
+    padding: 20
+  },
+  scrollView: {}
 });

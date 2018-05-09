@@ -3,17 +3,30 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight,
+  TouchableOpacity,
   ScrollView
 } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 
 import colors from "../../styles/colors";
+import { transparentHeaderStyle } from "../../styles/navigation";
 
-import ProductList from "./ProductList";
+import ExhibiterList from "./ExhibiterList";
 import ExhibitionCard from "./ExhibitionCard";
+
+import exhibiters from "../../data/exhibiters";
 export default class ExhibitionDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
-    header: null
+    headerStyle: [transparentHeaderStyle, { paddingLeft: 20 }],
+    // tabBarVisible: false,
+    headerLeft: (
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.closeButton}
+      >
+        <Icon name="md-close" size={30} color={colors.black} />
+      </TouchableOpacity>
+    )
   });
 
   render() {
@@ -21,7 +34,7 @@ export default class ExhibitionDetail extends Component {
       <View style={styles.wrapper}>
         <ScrollView style={styles.scrollViewWrapper}>
           <ExhibitionCard />
-          <ProductList />
+          <ExhibiterList exhibiters={exhibiters} />
 
           {/* <Text>具体某个展会</Text>
           <TouchableHighlight
@@ -39,6 +52,7 @@ export default class ExhibitionDetail extends Component {
 
 const styles = StyleSheet.create({
   wrapper: {
+    marginTop: 40,
     display: "flex",
     flex: 1
     // backgroundColor: colors.white

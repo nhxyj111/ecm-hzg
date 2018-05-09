@@ -1,4 +1,5 @@
 export default {
+  iosDefaultBG: "rgba(233,233,239,1)",
   lightBlack: "#484848",
   black: "#000000",
   white: "#ffffff",
@@ -16,5 +17,6 @@ export default {
   gray07: "#f2f2f2",
   brown01: "#ad8763",
   brown02: "#7d4918",
-  blue: "#4995cd"
+  blue: "#4995cd",
+  starYellow: "#FF8800"
 };

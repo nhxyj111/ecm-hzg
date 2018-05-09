@@ -9,7 +9,7 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 
 import Exhibitions from "../containers/Exhibitions";
-import Products from "../containers/Products";
+import Store from "../containers/Store";
 import Trade from "../containers/Trade";
 import Cart from "../containers/Cart";
 import Setting from "../containers/Setting";
@@ -19,6 +19,9 @@ import Exhibiter from "../components/exhibitions/Exhibiter";
 import ProductDetail from "../components/exhibitions/ProductDetail";
 import UserInfo from "../components/setting/UserInfo";
 import TradeList from "../components/trade/TradeList";
+
+import StoreFilterModal from "../components/store/StoreFilterModal";
+import StoreItemCard from "../components/store/StoreItemCard";
 
 const ExhibitionsTab = createStackNavigator(
   {
@@ -32,10 +35,11 @@ const ExhibitionsTab = createStackNavigator(
   }
 );
 
-const ProductsTab = createStackNavigator(
+const StoreTab = createStackNavigator(
   {
-    Products: { screen: Products },
-    ProductDetail: { screen: ProductDetail }
+    Store: { screen: Store },
+    StoreFilterModal: { screen: StoreFilterModal },
+    StoreItemCard: { screen: StoreItemCard }
   },
   {
     mode: "modal"
@@ -65,7 +69,7 @@ const SettingTab = createStackNavigator(
 const LoginedTabNav = createBottomTabNavigator(
   {
     ExhibitionsTab: { screen: ExhibitionsTab },
-    ProductsTab: { screen: ProductsTab },
+    StoreTab: { screen: StoreTab },
     TradeTab: { screen: TradeTab },
     Cart: { screen: Cart },
     SettingTab: { screen: SettingTab }
@@ -75,6 +79,7 @@ const LoginedTabNav = createBottomTabNavigator(
       let tabConfig = {
         tabBarLabel: "设置"
       };
+
       if (navigation.state.key === "ExhibitionsTab") {
         tabConfig = {
           tabBarLabel: "展会",
@@ -82,7 +87,7 @@ const LoginedTabNav = createBottomTabNavigator(
             return <Icon name="globe" size={25} color={tintColor} />;
           }
         };
-      } else if (navigation.state.key === "ProductsTab") {
+      } else if (navigation.state.key === "StoreTab") {
         tabConfig = {
           tabBarLabel: "商城",
           tabBarIcon: ({ focused, tintColor }) => {
@@ -113,12 +118,23 @@ const LoginedTabNav = createBottomTabNavigator(
           }
         };
       }
+      // console.log(JSON.stringify(navigation.state.routes));
+      // TODO: a 'modal' opened in nested stackNav (in tabNav)
+      const routes = navigation.state.routes;
+      if (
+        routes &&
+        routes.length === 2 &&
+        (routes[1].routeName === "ExhibitionDetail" ||
+          routes[1].routeName === "StoreFilterModal" ||
+          routes[1].routeName === "StoreItemCard")
+      ) {
+        tabConfig.tabBarVisible = false;
+      }
+
       return {
         ...tabConfig
         //header: null
       };
-      // console.log(JSON.stringify(navigation.state.key));
-      // return { tabBarLabel: "x" };
     },
     tabBarOptions: {
       activeTintColor: "tomato",
