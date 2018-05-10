@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FeatherIcon from "react-native-vector-icons/Feather";
+import IconBadge from "react-native-icon-badge";
 
 import colors from "../../styles/colors";
 
@@ -19,8 +21,18 @@ export default class StoreFilterHeader extends Component {
     return (
       <View style={styles.wrapper}>
         <View style={styles.leftWrapper}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("StoreFilterModal")}
+          >
             <Icon name="md-list" size={20} color={colors.lightBlack} />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            // onPress={() => navigation.navigate("StoreFilterModal")}
+            style={styles.leftBackIcon}
+            onPress={() => navigation.navigate("ProductFilterModal")}
+          >
+            <FeatherIcon name="filter" size={20} color={colors.lightBlack} />
           </TouchableOpacity>
           {showBackIcon && (
             <TouchableOpacity
@@ -43,13 +55,31 @@ export default class StoreFilterHeader extends Component {
             <Icon name="md-heart" size={20} color={colors.lightBlack} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.rightShopIcon}>
+          {/* <TouchableOpacity style={styles.rightShopIcon}>
             <FontAwesome
               name="shopping-basket"
               size={20}
               color={colors.lightBlack}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+
+          <IconBadge
+            MainElement={
+              <TouchableOpacity
+                style={styles.rightShopIcon}
+                onPress={() => navigation.navigate("Shopcart")}
+              >
+                <FontAwesome
+                  name="shopping-basket"
+                  size={20}
+                  color={colors.lightBlack}
+                />
+              </TouchableOpacity>
+            }
+            BadgeElement={<Text style={{ color: "#FFFFFF" }}>{11}</Text>}
+            IconBadgeStyle={styles.IconBadge}
+            Hidden={1 == 0}
+          />
         </View>
       </View>
     );
@@ -93,5 +123,16 @@ const styles = StyleSheet.create({
   },
   rightShopIcon: {
     marginLeft: 10
+  },
+  IconBadge: {
+    position: "absolute",
+    top: -5,
+    right: -5,
+    minWidth: 18,
+    height: 18,
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.starYellow
   }
 });

@@ -8,6 +8,8 @@ import Octicons from "react-native-vector-icons/Octicons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 
+import { isHiddenTabbarRoute } from "../utils";
+
 import Exhibitions from "../containers/Exhibitions";
 import Store from "../containers/Store";
 import Trade from "../containers/Trade";
@@ -22,13 +24,18 @@ import TradeList from "../components/trade/TradeList";
 
 import StoreFilterModal from "../components/store/StoreFilterModal";
 import StoreItemCard from "../components/store/StoreItemCard";
+import ProductFilterModal from "../components/store/ProductFilterModal";
+import Shopcart from "../components/store/Shopcart";
+import Check from "../components/store/Check";
 
 const ExhibitionsTab = createStackNavigator(
   {
     Exhibitions: { screen: Exhibitions },
     ExhibitionDetail: { screen: ExhibitionDetail },
     Exhibiter: { screen: Exhibiter },
-    ProductDetail: { screen: ProductDetail }
+    ProductDetail: { screen: ProductDetail },
+    Shopcart: { screen: Shopcart },
+    Check: { screen: Check }
   },
   {
     mode: "modal"
@@ -39,7 +46,8 @@ const StoreTab = createStackNavigator(
   {
     Store: { screen: Store },
     StoreFilterModal: { screen: StoreFilterModal },
-    StoreItemCard: { screen: StoreItemCard }
+    StoreItemCard: { screen: StoreItemCard },
+    ProductFilterModal: { screen: ProductFilterModal }
   },
   {
     mode: "modal"
@@ -121,13 +129,7 @@ const LoginedTabNav = createBottomTabNavigator(
       // console.log(JSON.stringify(navigation.state.routes));
       // TODO: a 'modal' opened in nested stackNav (in tabNav)
       const routes = navigation.state.routes;
-      if (
-        routes &&
-        routes.length === 2 &&
-        (routes[1].routeName === "ExhibitionDetail" ||
-          routes[1].routeName === "StoreFilterModal" ||
-          routes[1].routeName === "StoreItemCard")
-      ) {
+      if (isHiddenTabbarRoute(routes)) {
         tabConfig.tabBarVisible = false;
       }
 

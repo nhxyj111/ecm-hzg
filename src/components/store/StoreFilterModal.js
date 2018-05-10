@@ -75,7 +75,10 @@ export default class StoreFilterModal extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <ScrollView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 80 }}
+        >
           <Accordion
             sections={this.Sections}
             renderSectionTitle={this._renderSectionTitle}
@@ -92,10 +95,12 @@ export default class StoreFilterModal extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    position: "absolute",
-    top: 80,
-    left: 0,
-    right: 0,
+    // position: "absolute",
+    // top: 80,
+    // left: 0,
+    // right: 0,
+    marginTop: 80,
+    marginHorizontal: 0,
     backgroundColor: colors.iosDefaultBG
   },
   sectionWrapper: {

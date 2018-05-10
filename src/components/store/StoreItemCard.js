@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity
+} from "react-native";
 import StarRating from "react-native-star-rating";
 import Swiper from "react-native-swiper";
 
@@ -45,6 +51,7 @@ export default class StoreItemCard extends Component {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 80 }}
+          style={{ marginTop: 15 }}
         >
           <Swiper
             style={styles.swiper}
@@ -69,10 +76,41 @@ export default class StoreItemCard extends Component {
               详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.
             </Text>
           </View>
+
+          <View>
+            <View>
+              <View>
+                <Text>库存</Text>
+                <Text>120</Text>
+              </View>
+              <View>
+                <Text>产品代码</Text>
+                <Text>{product.id}</Text>
+              </View>
+            </View>
+            <View>
+              <View>
+                <Text>分享</Text>
+                <Text>120</Text>
+              </View>
+              <View>
+                <Text>喜欢</Text>
+                <Text>120</Text>
+              </View>
+            </View>
+          </View>
         </ScrollView>
 
         <View style={styles.footerBtnGroup}>
-          <Text>test for now</Text>
+          <TouchableOpacity
+            style={styles.leftBtn}
+            onPress={() => navigation.navigate("ProductFilterModal")}
+          >
+            <Text style={styles.leftBtnText}>选择品牌/尺码/价格等</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.rightBtn}>
+            <Text style={styles.rightBtnText}>加入购物车</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -153,7 +191,33 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 70,
-    backgroundColor: "tomato"
+    height: 60,
+    backgroundColor: colors.white,
+    borderTopColor: colors.gray04,
+    borderTopWidth: 2,
+    flexDirection: "row"
+  },
+  leftBtn: {
+    width: "50%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  leftBtnText: {
+    color: colors.gray04,
+    fontWeight: "600",
+    fontSize: 15
+  },
+  rightBtn: {
+    width: "50%",
+    height: "100%",
+    backgroundColor: colors.gray04,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  rightBtnText: {
+    color: colors.white,
+    fontWeight: "600",
+    fontSize: 18
   }
 });
