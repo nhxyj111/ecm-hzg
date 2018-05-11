@@ -49,7 +49,6 @@ export default class Shopcart extends Component {
             )}
             keyExtractor={item => item.id}
             style={styles.flatlist}
-            refreshing={this.staterefreshing}
           />
 
           <Text style={styles.total}>总计 {1000}</Text>
