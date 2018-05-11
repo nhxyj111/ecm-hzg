@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import colors from "../styles/colors";
 
-export default class Trade extends Component {
+export default class GroupButtons extends Component {
   state = {
     actived: "left"
   };

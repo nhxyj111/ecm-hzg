@@ -19,6 +19,8 @@ import Setting from "../containers/Setting";
 import ExhibitionDetail from "../components/exhibitions/ExhibitionDetail";
 import Exhibiter from "../components/exhibitions/Exhibiter";
 import ProductDetail from "../components/exhibitions/ProductDetail";
+import ExhibitionList from "../components/exhibitions/ExhibitionList";
+
 import UserInfo from "../components/setting/UserInfo";
 
 import StoreFilterModal from "../components/store/StoreFilterModal";
@@ -34,7 +36,8 @@ const ExhibitionsTab = createStackNavigator(
     Exhibiter: { screen: Exhibiter },
     ProductDetail: { screen: ProductDetail },
     Shopcart: { screen: Shopcart },
-    Check: { screen: Check }
+    Check: { screen: Check },
+    ExhibitionList: { screen: ExhibitionList }
   },
   {
     mode: "modal"
@@ -74,9 +77,9 @@ const SettingTab = createStackNavigator(
 
 const LoginedTabNav = createBottomTabNavigator(
   {
-    TradeTab: { screen: TradeTab },
-    StoreTab: { screen: StoreTab },
     ExhibitionsTab: { screen: ExhibitionsTab },
+    StoreTab: { screen: StoreTab },
+    TradeTab: { screen: TradeTab },
     Cart: { screen: Cart },
     SettingTab: { screen: SettingTab }
   },

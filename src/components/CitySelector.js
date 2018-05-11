@@ -4,10 +4,10 @@ import cityData from "../data/city.json";
 
 export default class CitySelector extends Component {
   // TODO 根据地理位置设置
-  static defaultProps = {
-    selectedProvince: "北京",
-    selectedCity: "北京"
-  };
+  // static defaultProps = {
+  //   selectedProvince: "北京",
+  //   selectedCity: "北京"
+  // };
 
   state = {
     province: [],

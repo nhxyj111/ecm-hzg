@@ -6,6 +6,11 @@ import {
   TouchableOpacity,
   ScrollView
 } from "react-native";
+import FeatherIcon from "react-native-vector-icons/Feather";
+
+import NewsList from "../components/exhibitions/NewsList";
+// TODO: test data
+import newsData from "../data/news";
 
 import SearchBar from "../components/SearchBar";
 import CitySelector from "../components/CitySelector";
@@ -43,8 +48,16 @@ export default class Exhibitions extends Component {
           contentContainerStyle={styles.scrollViewContent}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.heading}>最近热门展会</Text>
-
+          <View style={styles.headingWrapper}>
+            <Text style={styles.heading}>最近热门展会</Text>
+            <TouchableOpacity
+              style={styles.moreWrapper}
+              onPress={() => navigation.navigate("ExhibitionList")}
+            >
+              <Text style={styles.more}>展会动态</Text>
+              <FeatherIcon name="arrow-right" size={16} color={colors.gray04} />
+            </TouchableOpacity>
+          </View>
           <View style={styles.exhibitions}>
             <HotExhibitionList
               exhibitions={exhibitionsList}
@@ -52,9 +65,23 @@ export default class Exhibitions extends Component {
             />
           </View>
 
-          {/* <TouchableOpacity onPress={() => {}}>
-            <Text>goto 具体展会 ExhibitionDetail</Text>
-          </TouchableOpacity> */}
+          <Text style={styles.heading}>附近城市展会</Text>
+          <View style={styles.exhibitions}>
+            <HotExhibitionList
+              exhibitions={exhibitionsList}
+              navigation={navigation}
+            />
+          </View>
+
+          <View style={styles.headingWrapper}>
+            <Text style={styles.heading}>展会资讯</Text>
+            <TouchableOpacity style={styles.moreWrapper}>
+              <Text style={styles.more}>更多资讯</Text>
+              <FeatherIcon name="arrow-right" size={16} color={colors.gray04} />
+            </TouchableOpacity>
+          </View>
+
+          <NewsList data={newsData.slice(0, 5)} />
         </ScrollView>
 
         <CitySelector show={showCitySelector} />
@@ -76,10 +103,16 @@ const styles = StyleSheet.create({
     zIndex: 99
   },
   scrollview: {
-    paddingTop: 100
+    paddingTop: 100,
+    paddingBottom: 0
   },
   scrollViewContent: {
-    paddingBottom: 80
+    paddingBottom: 100
+  },
+  headingWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
   },
   heading: {
     color: colors.gray04,
@@ -88,8 +121,18 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingBottom: 20
   },
+  moreWrapper: {
+    flexDirection: "row",
+    marginRight: 20
+  },
+  more: {
+    paddingBottom: 20,
+    marginRight: 5,
+    color: colors.gray04,
+    fontSize: 16
+  },
   exhibitions: {
-    marginBottom: 40
+    marginBottom: 20
     // marginLeft: 20,
     // marginRight: 20
   }
