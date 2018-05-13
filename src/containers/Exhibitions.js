@@ -75,7 +75,10 @@ export default class Exhibitions extends Component {
 
           <View style={styles.headingWrapper}>
             <Text style={styles.heading}>展会资讯</Text>
-            <TouchableOpacity style={styles.moreWrapper}>
+            <TouchableOpacity
+              style={styles.moreWrapper}
+              onPress={() => navigation.navigate("NewsMore")}
+            >
               <Text style={styles.more}>更多资讯</Text>
               <FeatherIcon name="arrow-right" size={16} color={colors.gray04} />
             </TouchableOpacity>

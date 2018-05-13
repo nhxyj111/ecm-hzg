@@ -7,21 +7,25 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Octicons from "react-native-vector-icons/Octicons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import EntypoIcon from "react-native-vector-icons/Entypo";
+import MCIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { isHiddenTabbarRoute } from "../utils";
 
 import Exhibitions from "../containers/Exhibitions";
 import Store from "../containers/Store";
 import Trade from "../containers/Trade";
-import Cart from "../containers/Cart";
+import Chat from "../containers/Chat";
 import Setting from "../containers/Setting";
 
 import ExhibitionDetail from "../components/exhibitions/ExhibitionDetail";
 import Exhibiter from "../components/exhibitions/Exhibiter";
 import ProductDetail from "../components/exhibitions/ProductDetail";
 import ExhibitionList from "../components/exhibitions/ExhibitionList";
+import NewsMore from "../components/exhibitions/NewsMore";
 
 import UserInfo from "../components/setting/UserInfo";
+
+import MessageContainer from "../components/chat/MessageContainer";
 
 import StoreFilterModal from "../components/store/StoreFilterModal";
 import StoreItemCard from "../components/store/StoreItemCard";
@@ -37,7 +41,8 @@ const ExhibitionsTab = createStackNavigator(
     ProductDetail: { screen: ProductDetail },
     Shopcart: { screen: Shopcart },
     Check: { screen: Check },
-    ExhibitionList: { screen: ExhibitionList }
+    ExhibitionList: { screen: ExhibitionList },
+    NewsMore: { screen: NewsMore }
   },
   {
     mode: "modal"
@@ -75,12 +80,23 @@ const SettingTab = createStackNavigator(
   }
 );
 
+const ChatTab = createStackNavigator(
+  {
+    Chat: { screen: Chat },
+    MessageContainer: { screen: MessageContainer }
+  },
+  {
+    mode: "modal"
+  }
+);
+
 const LoginedTabNav = createBottomTabNavigator(
   {
+    ChatTab: { screen: ChatTab },
     ExhibitionsTab: { screen: ExhibitionsTab },
     StoreTab: { screen: StoreTab },
     TradeTab: { screen: TradeTab },
-    Cart: { screen: Cart },
+
     SettingTab: { screen: SettingTab }
   },
   {
@@ -110,12 +126,16 @@ const LoginedTabNav = createBottomTabNavigator(
             return <Icon name="truck" size={25} color={tintColor} />;
           }
         };
-      } else if (navigation.state.key === "Cart") {
+      } else if (navigation.state.key === "ChatTab") {
         tabConfig = {
-          tabBarLabel: "购物车",
+          tabBarLabel: "聊天",
           tabBarIcon: ({ focused, tintColor }) => {
             return (
-              <FeatherIcon name="shopping-cart" size={25} color={tintColor} />
+              <MCIcons
+                name="message-text-outline"
+                size={25}
+                color={tintColor}
+              />
             );
           }
         };
