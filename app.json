@@ -1,5 +1,10 @@
 {
   "expo": {
     "sdkVersion": "27.0.0"
+  },
+  "infoPlist": {
+    "NSCameraUsageDescription": "允许使用相机",
+    "NSPhotoLibraryAddUsageDescription": "允许保存图片",
+    "NSPhotoLibraryUsageDescription": "允许访问相册"
   }
 }

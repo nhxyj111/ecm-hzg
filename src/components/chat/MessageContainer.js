@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  KeyboardAvoidingView,
+  Keyboard
+} from "react-native";
+import { ImagePicker, Permissions } from "expo";
 
 import MessageHeader from "./MessageHeader";
 import Message from "./Message";
@@ -13,19 +21,73 @@ export default class MessageContainer extends Component {
     header: null
   });
 
+  state = {
+    image: null
+  };
+
+  componentDidMount() {
+    // this.flatList.scrollToEnd();
+    this.keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      this._scrollEnd
+    );
+    this.keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidHide",
+      this._scrollEnd
+    );
+  }
+
+  componentWillUnmount() {
+    Keyboard.removeListener("keyboardDidShow");
+    Keyboard.removeListener("keyboardDidHide");
+  }
+
+  _scrollEnd = evt => {
+    this.flatList.scrollToEnd();
+  };
+
+  _pickImage = async () => {
+    const permission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+    const { status } = permission;
+    if (status !== "granted") {
+      alert("无权访问相册");
+    } else {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [4, 3]
+      });
+
+      console.log(result);
+
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+    }
+  };
+
   render() {
     return (
-      <View style={styles.wrapper}>
-        <MessageHeader />
-        <View>
-          <FlatList
-            data={messageData}
-            renderItem={({ item, index }) => <Message message={item} />}
-            keyExtractor={item => item.id}
+      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+        <View style={styles.wrapper}>
+          <MessageHeader />
+          <View>
+            <FlatList
+              // ref="flatList"
+              ref={ref => (this.flatList = ref)}
+              data={messageData}
+              renderItem={({ item, index }) => <Message message={item} />}
+              keyExtractor={item => item.id}
+              onLayout={this._scrollEnd}
+              style={styles.flatlist}
+            />
+          </View>
+          <SendInputField
+            pickImage={this._pickImage}
+            image={this.state.image}
           />
         </View>
-        <SendInputField />
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -35,5 +97,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     paddingBottom: 120
+  },
+  flatlist: {
+    // flex: 1,
+    // flexGrow: 1
   }
 });

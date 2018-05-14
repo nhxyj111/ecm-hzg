@@ -10,19 +10,20 @@ import { PropTypes } from "prop-types";
 import FeatherIcon from "react-native-vector-icons/Feather";
 
 import colors from "../styles/colors";
-
 export default class SearchBar2 extends Component {
   render() {
+    const { rightIcon, onSearch, placeholder, bgColor, onFocus } = this.props;
     return (
-      <View style={styles.searchBox}>
+      <View style={[styles.searchBox, { backgroundColor: bgColor }]}>
         <TextInput
           style={styles.inputText}
           keyboardType="web-search"
-          placeholder="搜索展会资讯"
+          placeholder={placeholder}
+          onFocus={onFocus}
         />
 
-        <TouchableOpacity onPress={this.props.rightIconPress}>
-          <FeatherIcon name="filter" size={20} color={colors.gray05} />
+        <TouchableOpacity onPress={() => onSearch()}>
+          {rightIcon}
         </TouchableOpacity>
       </View>
     );
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // flex: 1,
     borderRadius: 5,
-    backgroundColor: colors.gray01,
+    // backgroundColor: colors.gray01,
     alignItems: "center",
     marginLeft: 20,
     marginRight: 20,

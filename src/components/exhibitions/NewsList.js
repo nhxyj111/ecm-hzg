@@ -19,5 +19,8 @@ export default class NewsList extends Component {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {}
+  wrapper: {},
+  flatlist: {
+    // paddingBottom: 80
+  }
 });

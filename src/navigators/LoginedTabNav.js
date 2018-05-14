@@ -92,11 +92,10 @@ const ChatTab = createStackNavigator(
 
 const LoginedTabNav = createBottomTabNavigator(
   {
-    ChatTab: { screen: ChatTab },
     ExhibitionsTab: { screen: ExhibitionsTab },
     StoreTab: { screen: StoreTab },
     TradeTab: { screen: TradeTab },
-
+    ChatTab: { screen: ChatTab },
     SettingTab: { screen: SettingTab }
   },
   {
