@@ -30,9 +30,14 @@ export default class Exhibitions extends Component {
   };
 
   toggleCitySelector = () => {
-    alert("xx");
+    // alert("xx");
     this.setState({ showCitySelector: !this.state.showCitySelector });
   };
+
+  // TODO: test for now
+  componentDidMount() {
+    this.props.navigation.navigate("Exhibiter");
+  }
 
   render() {
     const { showCitySelector } = this.state;

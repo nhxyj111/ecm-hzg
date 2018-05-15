@@ -18,5 +18,8 @@ export default {
   brown01: "#ad8763",
   brown02: "#7d4918",
   blue: "#4995cd",
-  starYellow: "#FF8800"
+  starYellow: "#FF8800",
+  tlBlue: "rgb(37,146,252)",
+  tlGreen: "rgb(85,192,45)",
+  tlRed: "rgb(218,35,48)"
 };

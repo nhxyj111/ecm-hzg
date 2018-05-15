@@ -97,7 +97,7 @@ export default class NewsMore extends Component {
   });
 
   state = {
-    showPrompt: true
+    showPrompt: false
   };
 
   _onSearch = () => {

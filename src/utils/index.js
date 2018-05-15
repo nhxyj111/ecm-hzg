@@ -4,7 +4,8 @@ const hiddenTabbarRoutes = [
   "StoreItemCard",
   "Shopcart",
   "ProductFilterModal",
-  "ExhibitionList"
+  "ExhibitionList",
+  "Exhibiter"
 ];
 
 export const isHiddenTabbarRoute = routes => {
