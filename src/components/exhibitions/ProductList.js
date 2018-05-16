@@ -12,6 +12,7 @@ import {
 
 import { CARD_GAP, VW } from "../../constants";
 import colors from "../../styles/colors";
+import { STATIC_BASE } from "../../services";
 
 const cardWithHeight = (VW - 8 * CARD_GAP) / 3;
 const defaultPhoto = "https://dummyimage.com/250/9a9a78/336688";
@@ -19,29 +20,33 @@ const defaultPhoto = "https://dummyimage.com/250/9a9a78/336688";
 export default class ProductList extends Component {
   get HotProducts() {
     const { products, navigation, onPress } = this.props;
-    return products.map((product, index) => (
-      <TouchableHighlight
-        key={index}
-        style={styles.card}
-        // TODO: test
-        onPress={() => onPress(product)}
-      >
-        <View style={styles.productWrapper}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: product.IMGURL !== "" ? product.IMGURL : defaultPhoto
-            }}
-            // resizeMode="contain"
-          />
-          <View style={styles.desc}>
-            <Text numberOfLines={1} style={styles.descText}>
-              {product.MERCHANDISE_NAME}
-            </Text>
+    return products.map((product, index) => {
+      const { IMGURL, MERCHANDISE_NAME } = product;
+      const photo = IMGURL ? STATIC_BASE + IMGURL : defaultPhoto;
+      return (
+        <TouchableHighlight
+          key={index}
+          style={styles.card}
+          // TODO: test
+          onPress={() => onPress(product)}
+        >
+          <View style={styles.productWrapper}>
+            <Image
+              style={styles.image}
+              source={{
+                uri: photo
+              }}
+              // resizeMode="contain"
+            />
+            <View style={styles.desc}>
+              <Text numberOfLines={1} style={styles.descText}>
+                {MERCHANDISE_NAME}
+              </Text>
+            </View>
           </View>
-        </View>
-      </TouchableHighlight>
-    ));
+        </TouchableHighlight>
+      );
+    });
   }
 
   render() {

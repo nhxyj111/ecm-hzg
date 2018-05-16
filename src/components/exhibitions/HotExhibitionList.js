@@ -10,6 +10,7 @@ import {
   Dimensions
 } from "react-native";
 
+import { STATIC_BASE } from "../../services";
 import { CARD_GAP, VW } from "../../constants";
 
 const cardWithHeight = (VW - 8 * CARD_GAP) / 3;
@@ -18,19 +19,23 @@ const defaultPhoto = "https://dummyimage.com/250/676767/a1a1a1";
 export default class HotExhibitionList extends Component {
   get HotExhibitions() {
     const { exhibitions, navigation } = this.props;
-    return exhibitions.map((ehb, index) => (
-      <TouchableHighlight
-        key={ehb._id}
-        style={styles.card}
-        onPress={() => navigation.navigate("ExhibitionDetail", { expo: ehb })}
-      >
-        <Image
-          style={styles.image}
-          source={{ uri: ehb.LOGOURL === "" ? defaultPhoto : ehb.LOGOURL }}
-          // resizeMode="contain"
-        />
-      </TouchableHighlight>
-    ));
+    return exhibitions.map((ehb, index) => {
+      const { LOGOURL } = ehb;
+      const photo = LOGOURL ? `${STATIC_BASE}${LOGOURL}` : defaultPhoto;
+      return (
+        <TouchableHighlight
+          key={ehb._id}
+          style={styles.card}
+          onPress={() => navigation.navigate("ExhibitionDetail", { expo: ehb })}
+        >
+          <Image
+            style={styles.image}
+            source={{ uri: photo }}
+            // resizeMode="contain"
+          />
+        </TouchableHighlight>
+      );
+    });
   }
 
   render() {

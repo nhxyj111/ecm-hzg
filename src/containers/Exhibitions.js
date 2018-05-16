@@ -11,13 +11,12 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import NewsList from "../components/exhibitions/NewsList";
 // TODO: test data
 import newsData from "../data/news";
-// TODO: test data
-import exhibitionsList from "../data/exhibitions";
-// TODO: test picker
+// import exhibitionsList from "../data/exhibitions";
 // import PickerTest from "../components/PickerTest";
 
 import SearchBar from "../components/SearchBar";
 import CitySelector from "../components/CitySelector";
+import DatePickerPrompt from "../components/DatePickerPrompt";
 import HotExhibitionList from "../components/exhibitions/HotExhibitionList";
 
 import colors from "../styles/colors";
@@ -30,12 +29,18 @@ export default class Exhibitions extends Component {
 
   state = {
     showCitySelector: false,
+    showDatePicker: false,
     expoList: []
   };
 
-  toggleCitySelector = () => {
+  _toggleCitySelector = () => {
     // alert("xx");
     this.setState({ showCitySelector: !this.state.showCitySelector });
+  };
+
+  _toggleDatePicker = () => {
+    // alert("_toggleDatePicker");
+    this.setState({ showDatePicker: !this.state.showDatePicker });
   };
 
   // TODO: test for now
@@ -46,14 +51,25 @@ export default class Exhibitions extends Component {
     // console.log(JSON.stringify(expoList.data));
     this.setState({ expoList: expoList.data });
   };
+  _searchByCity = selectedCity => {
+    this.setState(
+      () => ({ showCitySelector: false }),
+      () => {
+        alert(selectedCity);
+      }
+    );
+  };
 
   render() {
-    const { showCitySelector, expoList } = this.state;
+    const { showCitySelector, showDatePicker, expoList } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.wrapper}>
         <View style={styles.searchBarWrapper}>
-          <SearchBar rightIconPress={this.toggleCitySelector} />
+          <SearchBar
+            rightIconPress={this._toggleCitySelector}
+            leftIconPress={this._toggleDatePicker}
+          />
         </View>
 
         <ScrollView
@@ -94,7 +110,11 @@ export default class Exhibitions extends Component {
           <NewsList data={newsData.slice(0, 5)} />
         </ScrollView>
 
-        <CitySelector show={showCitySelector} />
+        <CitySelector
+          show={showCitySelector}
+          rightBtnPress={this._searchByCity}
+        />
+        <DatePickerPrompt show={showDatePicker} />
       </View>
     );
   }

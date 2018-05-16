@@ -13,6 +13,8 @@ import Wrapper from "../CommonWrapper";
 import CommentWrapper from "../CommentWrapper";
 import { transparentHeaderStyle } from "../../styles/navigation";
 import colors from "../../styles/colors";
+import { STATIC_BASE } from "../../services";
+
 // TODO: test data
 import commentsData from "../../data/comments";
 
@@ -43,13 +45,16 @@ export default class ProductDetail extends Component {
       _id,
       EXHIBITOR_ID
     } = product;
+
+    const photo = IMGURL ? STATIC_BASE + IMGURL : defaultPhoto;
+
     return (
       <Wrapper>
         <View style={styles.heading}>
           <ImageBackground
             style={styles.bgImag}
             source={{
-              uri: IMGURL !== "" ? IMGURL : defaultPhoto
+              uri: photo
             }}
             resizeMode="cover"
             borderRadius={3}

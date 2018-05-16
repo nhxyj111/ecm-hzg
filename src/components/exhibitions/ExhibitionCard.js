@@ -10,6 +10,7 @@ import {
 import moment from "moment";
 
 import colors from "../../styles/colors";
+import { STATIC_BASE } from "../../services";
 
 export default class ExhibitionCard extends Component {
   render() {
@@ -22,7 +23,8 @@ export default class ExhibitionCard extends Component {
       CONTACT,
       START_TIME,
       END_TIME,
-      SPONSORBY
+      SPONSORBY,
+      POSTURL
     } = expo;
     const startTime = START_TIME.split("T")
       .join(" ")
@@ -30,15 +32,23 @@ export default class ExhibitionCard extends Component {
     const endTime = END_TIME.split("T")
       .join(" ")
       .split(".")[0];
-
+    const postUrl = POSTURL
+      ? STATIC_BASE + POSTURL
+      : "https://dummyimage.com/400x700/96aa12/fff";
     return (
       <ImageBackground
         style={styles.wrapper}
-        source={{ uri: "https://dummyimage.com/400x700/96aa12/fff" }}
+        source={{ uri: postUrl }}
         resizeMode="cover"
         borderRadius={5}
       >
-        <ScrollView style={styles.card} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          style={styles.card}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingHorizontal: 5
+          }}
+        >
           <Text style={styles.heading}>{NAME}</Text>
           {/* 副标题 */}
           <View style={styles.subHeading}>
@@ -75,9 +85,18 @@ const styles = StyleSheet.create({
     // backgroundColor: "tomato",
     // borderRadius: 30,
     padding: 20,
-    height: 360
+    height: 360,
+    position: "relative"
   },
-  card: {},
+  card: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    borderRadius: 5
+  },
   heading: {
     alignSelf: "center",
     color: colors.white,
@@ -94,7 +113,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     color: colors.gray05,
-    fontSize: 10
+    fontSize: 12
   },
   descWrapper: {
     marginTop: 10

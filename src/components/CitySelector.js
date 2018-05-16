@@ -1,6 +1,13 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, PickerIOS as Picker } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  PickerIOS as Picker
+} from "react-native";
 import cityData from "../data/city.json";
+import colors from "../styles/colors";
 
 export default class CitySelector extends Component {
   // TODO 根据地理位置设置
@@ -58,7 +65,7 @@ export default class CitySelector extends Component {
   renderPicker = (key, i) => <Picker.Item key={i} label={key} value={key} />;
 
   render() {
-    const { show } = this.props;
+    const { show, rightBtnPress } = this.props;
     return (
       <View
         style={[
@@ -66,6 +73,13 @@ export default class CitySelector extends Component {
           { display: show ? "flex" : "none" }
         ]}
       >
+        <TouchableOpacity
+          style={styles.rightBtn}
+          onPress={() => rightBtnPress(this.state.selectedCity)}
+        >
+          <Text style={styles.rightBtnText}>确定查询</Text>
+        </TouchableOpacity>
+
         <Picker
           style={{ height: 50, width: 100 }}
           selectedValue={this.state.selectedProvince}
@@ -93,6 +107,7 @@ export default class CitySelector extends Component {
 
 const styles = StyleSheet.create({
   pickerViewContainer: {
+    // position: "relative",
     // flex: 1,
     flexDirection: "row",
     justifyContent: "center",
@@ -107,5 +122,15 @@ const styles = StyleSheet.create({
   },
   pickerItem: {
     flex: 1
+  },
+  rightBtn: {
+    position: "absolute",
+    right: 8,
+    top: 8
+  },
+  rightBtnText: {
+    color: colors.green01,
+    fontSize: 20,
+    fontWeight: "bold"
   }
 });

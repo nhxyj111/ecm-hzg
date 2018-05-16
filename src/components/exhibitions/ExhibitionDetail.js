@@ -15,7 +15,7 @@ import { axiosInstance } from "../../services";
 import ExhibiterList from "./ExhibiterList";
 import ExhibitionCard from "./ExhibitionCard";
 
-import exhibiters from "../../data/exhibiters";
+// import exhibiters from "../../data/exhibiters";
 export default class ExhibitionDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerStyle: [transparentHeaderStyle, { paddingLeft: 20 }],
@@ -31,7 +31,6 @@ export default class ExhibitionDetail extends Component {
   });
 
   state = {
-    expo: null,
     exhibiters: []
   };
 
@@ -40,6 +39,7 @@ export default class ExhibitionDetail extends Component {
     const { expo } = navigation.state.params;
     const response = await axiosInstance.get(`getExhibitorsByExpo/${expo._id}`);
     const exhibiters = response.data;
+    // console.log(exhibiters);
     this.setState({ exhibiters, expo });
   };
 
@@ -48,8 +48,10 @@ export default class ExhibitionDetail extends Component {
   };
 
   render() {
-    const { exhibiters, expo } = this.state;
-    if (!!exhibiters && !!expo) {
+    const { navigation } = this.props;
+    const { expo } = navigation.state.params;
+    const { exhibiters } = this.state;
+    if (!!exhibiters) {
       return (
         <View style={styles.wrapper}>
           <ScrollView style={styles.scrollViewWrapper}>
