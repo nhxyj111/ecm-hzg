@@ -12,6 +12,18 @@ import colors from "../../styles/colors";
 
 export default class ExhibiterDesc extends Component {
   render() {
+    const { exhibiter } = this.props;
+    const {
+      _id,
+      COM_NAME,
+      PROVINCE_ID,
+      CITY_ID,
+      ADDRESS,
+      CONTACT,
+      PHONE,
+      MOBILE
+    } = exhibiter;
+
     return (
       <ImageBackground
         style={styles.wrapper}
@@ -20,7 +32,7 @@ export default class ExhibiterDesc extends Component {
         borderRadius={5}
       >
         <ScrollView style={styles.card} showsVerticalScrollIndicator={false}>
-          <Text style={styles.heading}>北京维鼎森通信技术有限公司</Text>
+          <Text style={styles.heading}>{COM_NAME}</Text>
           {/* 副标题 */}
           <View style={styles.subHeading}>
             <View style={styles.subTextWrapper}>

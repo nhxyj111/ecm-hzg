@@ -22,6 +22,8 @@ import Exhibiter from "../components/exhibitions/Exhibiter";
 import ProductDetail from "../components/exhibitions/ProductDetail";
 import ExhibitionList from "../components/exhibitions/ExhibitionList";
 import NewsMore from "../components/exhibitions/NewsMore";
+import ProductSearch from "../components/exhibitions/ProductSearch";
+import ExhibitionSearchResults from "../components/exhibitions/ExhibitionSearchResults";
 
 import UserInfo from "../components/setting/UserInfo";
 
@@ -42,7 +44,9 @@ const ExhibitionsTab = createStackNavigator(
     Shopcart: { screen: Shopcart },
     Check: { screen: Check },
     ExhibitionList: { screen: ExhibitionList },
-    NewsMore: { screen: NewsMore }
+    NewsMore: { screen: NewsMore },
+    ProductSearch: { screen: ProductSearch },
+    ExhibitionSearchResults: { screen: ExhibitionSearchResults }
   },
   {
     mode: "modal"

@@ -35,6 +35,7 @@ export default class MessageContainer extends Component {
       "keyboardDidHide",
       this._scrollEnd
     );
+    // this._scrollEnd();
   }
 
   componentWillUnmount() {
@@ -78,7 +79,7 @@ export default class MessageContainer extends Component {
               data={messageData}
               renderItem={({ item, index }) => <Message message={item} />}
               keyExtractor={item => item.id}
-              onLayout={this._scrollEnd}
+              // onLayout={this._scrollEnd}
               style={styles.flatlist}
             />
           </View>

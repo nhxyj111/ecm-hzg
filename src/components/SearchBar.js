@@ -10,6 +10,7 @@ import {
 import { PropTypes } from "prop-types";
 
 import FeatherIcon from "react-native-vector-icons/Feather";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import colors from "../styles/colors";
 
@@ -17,6 +18,10 @@ export default class SearchBar extends Component {
   render() {
     return (
       <View style={styles.searchBox}>
+        <TouchableOpacity onPress={this.props.leftIconPress}>
+          <FontAwesome name="calendar" size={20} color={colors.gray05} />
+        </TouchableOpacity>
+
         <TextInput
           style={styles.inputText}
           keyboardType="web-search"
@@ -53,6 +58,7 @@ const styles = StyleSheet.create({
   inputText: {
     flex: 1,
     backgroundColor: "transparent",
-    fontSize: 15
+    fontSize: 15,
+    paddingHorizontal: 5
   }
 });

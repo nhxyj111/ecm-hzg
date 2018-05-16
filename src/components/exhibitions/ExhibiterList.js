@@ -9,7 +9,11 @@ export default class ExhibiterList extends Component {
     return (
       <View style={styles.wrapper}>
         {exhibiters.map((ehb, index) => (
-          <ExhibiterCard key={index} photo={ehb.photo} name={ehb.name} />
+          <ExhibiterCard
+            key={ehb._id}
+            exhibiter={ehb}
+            onPress={() => this.props.gotoExhibiter(ehb)}
+          />
         ))}
       </View>
     );

@@ -13,20 +13,20 @@ import {
 import { CARD_GAP, VW } from "../../constants";
 
 const cardWithHeight = (VW - 8 * CARD_GAP) / 3;
+const defaultPhoto = "https://dummyimage.com/250/676767/a1a1a1";
 
 export default class HotExhibitionList extends Component {
   get HotExhibitions() {
     const { exhibitions, navigation } = this.props;
     return exhibitions.map((ehb, index) => (
       <TouchableHighlight
-        key={index}
+        key={ehb._id}
         style={styles.card}
-        // TODO: test
-        onPress={() => navigation.navigate("ExhibitionDetail")}
+        onPress={() => navigation.navigate("ExhibitionDetail", { expo: ehb })}
       >
         <Image
           style={styles.image}
-          source={{ uri: ehb.photo }}
+          source={{ uri: ehb.LOGOURL === "" ? defaultPhoto : ehb.LOGOURL }}
           // resizeMode="contain"
         />
       </TouchableHighlight>

@@ -10,6 +10,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import colors from "../../styles/colors";
 import { transparentHeaderStyle } from "../../styles/navigation";
+import { axiosInstance } from "../../services";
 
 import ExhibiterList from "./ExhibiterList";
 import ExhibitionCard from "./ExhibitionCard";
@@ -29,24 +30,41 @@ export default class ExhibitionDetail extends Component {
     )
   });
 
-  render() {
-    return (
-      <View style={styles.wrapper}>
-        <ScrollView style={styles.scrollViewWrapper}>
-          <ExhibitionCard />
-          <ExhibiterList exhibiters={exhibiters} />
+  state = {
+    expo: null,
+    exhibiters: []
+  };
 
-          {/* <Text>具体某个展会</Text>
-          <TouchableHighlight
-            onPress={() => {
-              this.props.navigation.navigate("Exhibiter");
-            }}
-          >
-            <Text>goto 展商 Exhibiter</Text>
-          </TouchableHighlight> */}
-        </ScrollView>
-      </View>
-    );
+  componentDidMount = async () => {
+    const { navigation } = this.props;
+    const { expo } = navigation.state.params;
+    const response = await axiosInstance.get(`getExhibitorsByExpo/${expo._id}`);
+    const exhibiters = response.data;
+    this.setState({ exhibiters, expo });
+  };
+
+  _gotoExhibiter = exhibiter => {
+    this.props.navigation.navigate("Exhibiter", { exhibiter });
+  };
+
+  render() {
+    const { exhibiters, expo } = this.state;
+    if (!!exhibiters && !!expo) {
+      return (
+        <View style={styles.wrapper}>
+          <ScrollView style={styles.scrollViewWrapper}>
+            <ExhibitionCard expo={expo} />
+            <ExhibiterList
+              exhibiters={exhibiters}
+              gotoExhibiter={this._gotoExhibiter}
+            />
+          </ScrollView>
+        </View>
+      );
+    } else {
+      // TODO: loading component
+      return null;
+    }
   }
 }
 

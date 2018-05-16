@@ -1,24 +1,32 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity
+} from "react-native";
 
 import colors from "../../styles/colors";
 import { CARD_GAP, VW } from "../../constants";
 
 const cardWithHeight = (VW - 20 * 4) / 3;
+const defaultPhoto = "https://dummyimage.com/100x100/FF6347/fff";
 
 export default class ExhibiterCard extends Component {
   render() {
-    const { name, photo } = this.props;
+    const { exhibiter } = this.props;
+    const { COM_NAME, LOGOURL } = exhibiter;
     return (
-      <View style={styles.wrapper}>
+      <TouchableOpacity style={styles.wrapper} onPress={this.props.onPress}>
         <ImageBackground
           style={styles.bgImag}
-          source={{ uri: photo }}
+          source={{ uri: LOGOURL === "" ? defaultPhoto : LOGOURL }}
           resizeMode="cover"
           borderRadius={3}
         />
-        <Text style={styles.exhibiterName}>{name}</Text>
-      </View>
+        <Text style={styles.exhibiterName}>{COM_NAME}</Text>
+      </TouchableOpacity>
     );
   }
 }
@@ -36,6 +44,7 @@ const styles = StyleSheet.create({
     color: colors.gray04,
     paddingTop: 10,
     paddingBottom: 15,
-    textAlign: "center"
+    textAlign: "center",
+    width: cardWithHeight
   }
 });

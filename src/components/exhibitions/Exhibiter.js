@@ -14,6 +14,7 @@ import SearchBar2 from "../../components/SearchBar2";
 import Timeline from "../../components/Timeline";
 import colors from "../../styles/colors";
 import { transparentHeaderStyle } from "../../styles/navigation";
+import { axiosInstance } from "../../services";
 // TODO: test for now
 import timelineData from "../../data/timelines";
 import ProductList from "../../components/exhibitions/ProductList";
@@ -32,16 +33,32 @@ export default class Exhibiter extends Component {
     )
   });
 
-  _onFocus = () => {};
+  state = {
+    products: []
+  };
 
-  _onSearch = () => {};
+  // _onFocus = () => {};
 
-  _onPress = () => {
-    this.props.navigation.navigate("ProductDetail");
+  // _onSearch = () => {};
+
+  _onPress = product => {
+    this.props.navigation.navigate("ProductDetail", { product });
+  };
+
+  componentDidMount = async () => {
+    const { exhibiter } = this.props.navigation.state.params;
+    const response = await axiosInstance.get(
+      `getProductsByExhitor/${exhibiter._id}`
+    );
+    const products = response.data;
+    this.setState({ products });
   };
 
   render() {
     const { navigation } = this.props;
+    const { exhibiter } = navigation.state.params;
+    // const {_id,COM_NAME,PROVINCE_ID,CITY_ID, ADDRESS,CONTACT,PHONE,MOBILE}
+    const { products } = this.state;
     return (
       <View style={styles.wrapper}>
         <ScrollView
@@ -49,8 +66,8 @@ export default class Exhibiter extends Component {
           contentContainerStyle={{ paddingBottom: 20 }}
           showsVerticalScrollIndicator={false}
         >
-          <ExhibiterDesc />
-          <SearchBar2
+          <ExhibiterDesc exhibiter={exhibiter} />
+          {/* <SearchBar2
             onSearch={this._onSearch}
             rightIcon={
               <Icon name="ios-search" size={20} color={colors.gray05} />
@@ -58,13 +75,13 @@ export default class Exhibiter extends Component {
             placeholder="搜索展商商品"
             bgColor={colors.gray01}
             onFocus={this._onFocus}
-          />
+          /> */}
 
           <View style={styles.headingWrapper}>
             <Text style={styles.heading}>正在参展热门商品</Text>
             <TouchableOpacity
               style={styles.moreWrapper}
-              onPress={() => navigation.navigate("ProductDetail")}
+              onPress={() => navigation.navigate("ProductSearch")}
             >
               <Text style={styles.more}>更多</Text>
               <FeatherIcon name="arrow-right" size={14} color={colors.gray04} />
@@ -72,10 +89,7 @@ export default class Exhibiter extends Component {
           </View>
 
           <View style={styles.items}>
-            <ProductList
-              exhibitions={exhibitionsList}
-              onPress={this._onPress}
-            />
+            <ProductList products={products} onPress={this._onPress} />
           </View>
 
           <Timeline data={timelineData} />

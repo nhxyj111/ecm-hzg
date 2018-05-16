@@ -93,7 +93,7 @@ export default class CitySelector extends Component {
 
 const styles = StyleSheet.create({
   pickerViewContainer: {
-    flex: 1,
+    // flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -101,9 +101,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 200,
-    marginBottom: 100,
-    zIndex: 2
+    // height: 200,
+    backgroundColor: "rgba(255,255,255,0.9)",
+    paddingBottom: 160
   },
   pickerItem: {
     flex: 1

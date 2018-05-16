@@ -11,14 +11,17 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import NewsList from "../components/exhibitions/NewsList";
 // TODO: test data
 import newsData from "../data/news";
+// TODO: test data
+import exhibitionsList from "../data/exhibitions";
+// TODO: test picker
+// import PickerTest from "../components/PickerTest";
 
 import SearchBar from "../components/SearchBar";
 import CitySelector from "../components/CitySelector";
 import HotExhibitionList from "../components/exhibitions/HotExhibitionList";
 
 import colors from "../styles/colors";
-// TODO: test data
-import exhibitionsList from "../data/exhibitions";
+import { axiosInstance } from "../services";
 
 export default class Exhibitions extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -26,7 +29,8 @@ export default class Exhibitions extends Component {
   });
 
   state = {
-    showCitySelector: false
+    showCitySelector: false,
+    expoList: []
   };
 
   toggleCitySelector = () => {
@@ -35,12 +39,16 @@ export default class Exhibitions extends Component {
   };
 
   // TODO: test for now
-  componentDidMount() {
-    this.props.navigation.navigate("Exhibiter");
-  }
+  componentDidMount = async () => {
+    // TODO: test
+    // this.props.navigation.navigate("Exhibiter");
+    const expoList = await axiosInstance.get("searchExpo");
+    // console.log(JSON.stringify(expoList.data));
+    this.setState({ expoList: expoList.data });
+  };
 
   render() {
-    const { showCitySelector } = this.state;
+    const { showCitySelector, expoList } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.wrapper}>
@@ -64,18 +72,12 @@ export default class Exhibitions extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.exhibitions}>
-            <HotExhibitionList
-              exhibitions={exhibitionsList}
-              navigation={navigation}
-            />
+            <HotExhibitionList exhibitions={expoList} navigation={navigation} />
           </View>
 
           <Text style={styles.heading}>附近城市展会</Text>
           <View style={styles.exhibitions}>
-            <HotExhibitionList
-              exhibitions={exhibitionsList}
-              navigation={navigation}
-            />
+            <HotExhibitionList exhibitions={expoList} navigation={navigation} />
           </View>
 
           <View style={styles.headingWrapper}>
