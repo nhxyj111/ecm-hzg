@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     color: colors.white,
     fontSize: 24,
-    fontWeight: "600"
+    fontWeight: "600",
+    marginTop: 10
   },
   subHeading: {
     flexDirection: "column",

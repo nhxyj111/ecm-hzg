@@ -55,7 +55,23 @@ export default class Exhibitions extends Component {
     this.setState(
       () => ({ showCitySelector: false }),
       () => {
-        alert(selectedCity);
+        // alert(selectedCity);
+        this.props.navigation.navigate("ExhibitionSearchResults", {
+          city: selectedCity
+        });
+      }
+    );
+  };
+
+  _searchByDate = (start, end) => {
+    this.setState(
+      () => ({ showDatePicker: false }),
+      () => {
+        // alert(start + "<>" + end);
+        this.props.navigation.navigate("ExhibitionSearchResults", {
+          start,
+          end
+        });
       }
     );
   };
@@ -112,9 +128,12 @@ export default class Exhibitions extends Component {
 
         <CitySelector
           show={showCitySelector}
-          rightBtnPress={this._searchByCity}
+          searchByCity={this._searchByCity}
         />
-        <DatePickerPrompt show={showDatePicker} />
+        <DatePickerPrompt
+          show={showDatePicker}
+          searchByDate={this._searchByDate}
+        />
       </View>
     );
   }

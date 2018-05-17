@@ -1,65 +1,89 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import moment from "moment";
 
+import CustomTag from "../CustomTag";
+import { STATIC_BASE } from "../../services";
 import colors from "../../styles/colors";
 
 export default class ExhibitionItem extends Component {
   render() {
     const {
-      id,
-      desc,
-      startDate,
-      endDate,
-      location,
-      address,
-      isNew,
-      name,
-      host,
-      photo,
-      phone
+      _id,
+      DETAIL,
+      START_TIME,
+      END_TIME,
+      ADDRESS,
+      SPONSORBY,
+      VENUE,
+      PRICE, // "免费"
+      NAME,
+      LOGOURL,
+      CONTACT,
+      VIEW_NUM,
+      TEL,
+      LATITUDE,
+      LONGITUDE
     } = this.props.data;
 
+    const photo =
+      LOGOURL !== ""
+        ? STATIC_BASE + LOGOURL
+        : "https://dummyimage.com/250/676767/a1a1a1";
+
     return (
-      <View style={styles.wrapper}>
+      <TouchableOpacity style={styles.wrapper}>
         <View style={styles.left}>
           <Image source={{ uri: photo }} style={styles.image} />
         </View>
         <View style={styles.right}>
           <Text numberOfLines={1} style={styles.name}>
-            {name}
+            {NAME}
           </Text>
-          <Text numberOfLines={1} style={styles.desc}>
-            {desc}
-          </Text>
+          {/* <Text numberOfLines={1} style={styles.desc}>
+            {DETAIL}
+          </Text> */}
           <Text numberOfLines={1} style={styles.address}>
-            地址: {address}
+            地址: {ADDRESS}
           </Text>
           <Text numberOfLines={1} style={styles.location}>
-            场馆: {location}
+            场馆: {VENUE}
           </Text>
           <Text numberOfLines={1} style={styles.host}>
-            主办方: {host}
+            主办方: {SPONSORBY}
           </Text>
           <Text numberOfLines={1} style={styles.phone}>
-            联系电话: {phone}
+            联系电话: {TEL}
           </Text>
           <Text numberOfLines={1} style={styles.timesHeader}>
             活动时间:{" "}
           </Text>
           <Text numberOfLines={1} style={styles.times}>
-            {startDate} - {endDate}
+            {moment(START_TIME).format("YYYY-MM-DD")} -{" "}
+            {moment(END_TIME).format("YYYY-MM-DD")}
           </Text>
         </View>
-      </View>
+        {PRICE == 0 ? (
+          <CustomTag
+            gbColor="tomato"
+            color="white"
+            size={60}
+            textSize={12}
+            position="right-bottom"
+            title="免费"
+          />
+        ) : null}
+      </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
   wrapper: {
-    paddingHorizontal: 20,
+    marginHorizontal: 20,
     flexDirection: "row",
-    marginBottom: 10
+    marginBottom: 10,
+    overflow: "hidden"
   },
   left: {},
   image: {

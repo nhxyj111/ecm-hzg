@@ -70,7 +70,7 @@ export default class InputField extends Component {
             style={styles.showButton}
           >
             <Text style={styles.showButtonText}>
-              {secureInput ? "Show" : "Hide"}
+              {secureInput ? "显示" : "隐藏"}
             </Text>
           </TouchableOpacity>
         ) : null}

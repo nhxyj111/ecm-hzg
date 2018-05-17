@@ -34,16 +34,16 @@ export default class DatePickerPrompt extends Component {
   };
 
   render() {
-    const { show } = this.props;
-    let { startDate, endDate, flag } = this.state;
-    startDate = moment(startDate).format("YYYY-MM-DD");
-    endDate = moment(endDate).format("YYYY-MM-DD");
+    const { show, searchByDate } = this.props;
+    const { startDate, endDate, flag } = this.state;
+    const formattedStartDate = moment(startDate).format("YYYY-MM-DD");
+    const formattedEndDate = moment(endDate).format("YYYY-MM-DD");
     // console.log(endDate);
 
     return (
       <View style={[styles.container, { display: show ? "flex" : "none" }]}>
         <DatePicker
-          date={this.state.startDate}
+          date={flag === "start" ? startDate : endDate}
           onDateChange={this.setDate}
           mode="date"
         />
@@ -59,7 +59,7 @@ export default class DatePickerPrompt extends Component {
                   { color: flag === "start" ? colors.pink : colors.gray02 }
                 ]}
               >
-                选择开始日期({startDate})
+                选择开始日期({formattedStartDate})
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -72,11 +72,13 @@ export default class DatePickerPrompt extends Component {
                   { color: flag === "end" ? colors.pink : colors.gray02 }
                 ]}
               >
-                选择结束日期({endDate})
+                选择结束日期({formattedEndDate})
               </Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => searchByDate(formattedStartDate, formattedEndDate)}
+          >
             <Text style={styles.search}>确定查询</Text>
           </TouchableOpacity>
         </View>

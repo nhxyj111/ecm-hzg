@@ -6,11 +6,14 @@ import colors from "../styles/colors";
 
 export default class GroupButtons2 extends Component {
   state = {
-    active: this.props.config[0].key
+    active: this.props.defaultKey
   };
 
   toggleActiveButton = active => {
-    this.setState({ active });
+    this.setState(
+      () => ({ active }),
+      () => this.props.onChange(this.state.active)
+    );
   };
 
   render() {

@@ -17,7 +17,7 @@ export default class Register extends Component {
   };
 
   handlePasswordChange = () => {
-    alert("pwd");
+    // alert("pwd");
   };
 
   onLogin = () => {

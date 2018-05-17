@@ -65,7 +65,7 @@ export default class CitySelector extends Component {
   renderPicker = (key, i) => <Picker.Item key={i} label={key} value={key} />;
 
   render() {
-    const { show, rightBtnPress } = this.props;
+    const { show, searchByCity } = this.props;
     return (
       <View
         style={[
@@ -75,7 +75,7 @@ export default class CitySelector extends Component {
       >
         <TouchableOpacity
           style={styles.rightBtn}
-          onPress={() => rightBtnPress(this.state.selectedCity)}
+          onPress={() => searchByCity(this.state.selectedCity)}
         >
           <Text style={styles.rightBtnText}>确定查询</Text>
         </TouchableOpacity>

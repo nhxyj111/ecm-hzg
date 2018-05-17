@@ -12,9 +12,9 @@ const AppNav = createStackNavigator(
   {
     // TODO: for test
     Logined: { screen: LoginedTabNav },
-
     // TODO:
     Welcome: { screen: Welcome },
+
     Login: { screen: Login },
     // Logined: { screen: LoginedTabNav },
     Register: { screen: Register }
