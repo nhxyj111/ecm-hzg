@@ -66,8 +66,10 @@ export default class CommonWrapper extends Component {
   }
 
   componentWillUnmount() {
-    Keyboard.removeListener("keyboardDidShow");
-    Keyboard.removeListener("keyboardDidHide");
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidShowListener.remove();
+    // Keyboard.removeListener("keyboardDidShow");
+    // Keyboard.removeListener("keyboardDidHide");
   }
 
   render() {

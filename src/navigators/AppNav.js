@@ -5,11 +5,14 @@ import { createStackNavigator } from "react-navigation";
 import Welcome from "../screen/Welcome";
 import Login from "../screen/Login";
 import Register from "../screen/Register";
+import Shop from "../screen/Shop";
 
 import LoginedTabNav from "./LoginedTabNav";
 
 const AppNav = createStackNavigator(
   {
+    // TODO: for test
+    Shop: { screen: Shop },
     // TODO: for test
     Logined: { screen: LoginedTabNav },
     // TODO:

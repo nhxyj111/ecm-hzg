@@ -54,6 +54,14 @@ export default class Exhibiter extends Component {
     this.setState({ products });
   };
 
+  _moreProducts = () => {
+    const { navigation } = this.props;
+    const {
+      exhibiter: { _id }
+    } = navigation.state.params;
+    navigation.navigate("ProductSearch", { exhibiterId: _id });
+  };
+
   render() {
     const { navigation } = this.props;
     const { exhibiter } = navigation.state.params;
@@ -81,7 +89,7 @@ export default class Exhibiter extends Component {
             <Text style={styles.heading}>正在参展热门商品</Text>
             <TouchableOpacity
               style={styles.moreWrapper}
-              onPress={() => navigation.navigate("ProductSearch")}
+              onPress={this._moreProducts}
             >
               <Text style={styles.more}>更多</Text>
               <FeatherIcon name="arrow-right" size={14} color={colors.gray04} />

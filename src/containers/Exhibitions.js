@@ -30,7 +30,8 @@ export default class Exhibitions extends Component {
   state = {
     showCitySelector: false,
     showDatePicker: false,
-    expoList: []
+    expoList: [],
+    key: ""
   };
 
   _toggleCitySelector = () => {
@@ -43,10 +44,7 @@ export default class Exhibitions extends Component {
     this.setState({ showDatePicker: !this.state.showDatePicker });
   };
 
-  // TODO: test for now
   componentDidMount = async () => {
-    // TODO: test
-    // this.props.navigation.navigate("Exhibiter");
     const expoList = await axiosInstance.get("searchExpo");
     // console.log(JSON.stringify(expoList.data));
     this.setState({ expoList: expoList.data });
@@ -76,8 +74,18 @@ export default class Exhibitions extends Component {
     );
   };
 
+  _onSearch = () => {
+    this.props.navigation.navigate("ExhibitionSearchResults", {
+      city: this.state.key
+    });
+  };
+
+  _onChangeText = key => {
+    this.setState({ key });
+  };
+
   render() {
-    const { showCitySelector, showDatePicker, expoList } = this.state;
+    const { showCitySelector, showDatePicker, expoList, key } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.wrapper}>
@@ -85,6 +93,9 @@ export default class Exhibitions extends Component {
           <SearchBar
             rightIconPress={this._toggleCitySelector}
             leftIconPress={this._toggleDatePicker}
+            onSearch={this._onSearch}
+            onChangeText={this._onChangeText}
+            value={key}
           />
         </View>
 

@@ -8,6 +8,7 @@ import colors from "../../styles/colors";
 
 export default class ExhibitionItem extends Component {
   render() {
+    const { onPress, data } = this.props;
     const {
       _id,
       DETAIL,
@@ -24,7 +25,7 @@ export default class ExhibitionItem extends Component {
       TEL,
       LATITUDE,
       LONGITUDE
-    } = this.props.data;
+    } = data;
 
     const photo =
       LOGOURL !== ""
@@ -32,7 +33,7 @@ export default class ExhibitionItem extends Component {
         : "https://dummyimage.com/250/676767/a1a1a1";
 
     return (
-      <TouchableOpacity style={styles.wrapper}>
+      <TouchableOpacity style={styles.wrapper} onPress={onPress}>
         <View style={styles.left}>
           <Image source={{ uri: photo }} style={styles.image} />
         </View>

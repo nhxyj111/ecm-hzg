@@ -12,9 +12,7 @@ import SearchBar2 from "../../components/SearchBar2";
 import Product from "../../components/exhibitions/Product";
 import { transparentHeaderStyle } from "../../styles/navigation";
 import colors from "../../styles/colors";
-
-// TODO: test data
-import products from "../../data/products";
+import { axiosInstance } from "../../services";
 
 export default class ProductSearch extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -25,6 +23,24 @@ export default class ProductSearch extends Component {
       </TouchableOpacity>
     )
   });
+
+  state = {
+    results: []
+  };
+
+  componentDidMount = () => {
+    this._loadResults();
+  };
+
+  _loadResults = async () => {
+    const { navigation } = this.props;
+    const { exhibiterId } = navigation.state.params;
+    const response = await axiosInstance.get(
+      `getProductsByExhitor/${exhibiterId}`
+    );
+    const results = response.data;
+    this.setState({ results });
+  };
 
   _onSearch = () => {};
 
@@ -47,7 +63,9 @@ export default class ProductSearch extends Component {
             paddingTop: 15
           }}
         >
-          {products.map((item, index) => <Product item={item} key={item.id} />)}
+          {this.state.results.map((item, index) => (
+            <Product item={item} key={item._id} />
+          ))}
         </ScrollView>
       </View>
     );

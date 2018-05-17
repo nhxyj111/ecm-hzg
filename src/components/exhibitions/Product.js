@@ -9,13 +9,16 @@ import {
 
 import colors from "../../styles/colors";
 import { CARD_GAP, VW } from "../../constants";
+import { STATIC_BASE } from "../../services";
 
 const cardWithHeight = (VW - 20 * 4) / 3;
+const defaultPhoto = "https://dummyimage.com/250/9a9a78/336688";
 
 export default class Product extends Component {
   render() {
     const { item } = this.props;
-    const { name, photo } = item;
+    const { IMGURL, MERCHANDISE_NAME } = item;
+    const photo = IMGURL !== "" ? STATIC_BASE + IMGURL : defaultPhoto;
     return (
       <TouchableOpacity style={styles.wrapper}>
         <ImageBackground
@@ -25,7 +28,7 @@ export default class Product extends Component {
           // borderRadius={3}
         />
         <View style={styles.name}>
-          <Text style={styles.nameText}>{name}</Text>
+          <Text style={styles.nameText}>{MERCHANDISE_NAME}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     top: "50%",
 
-    backgroundColor: "rgba(255,255,255,0.4)",
+    backgroundColor: "rgba(0,0,0,0.5)",
     justifyContent: "center",
     alignItems: "center"
   },

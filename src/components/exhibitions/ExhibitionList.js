@@ -118,7 +118,16 @@ export default class ExhibitionList extends Component {
         <View style={styles.content}>
           <FlatList
             data={this.state.results}
-            renderItem={({ item, index }) => <ExhibitionItem data={item} />}
+            renderItem={({ item, index }) => (
+              <ExhibitionItem
+                data={item}
+                onPress={() =>
+                  this.props.navigation.navigate("ExhibitionDetail", {
+                    expo: item
+                  })
+                }
+              />
+            )}
             keyExtractor={item => item._id}
           />
         </View>

@@ -5,7 +5,8 @@ import {
   View,
   Platform,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from "react-native";
 import { PropTypes } from "prop-types";
 
@@ -15,10 +16,39 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import colors from "../styles/colors";
 
 export default class SearchBar extends Component {
+  _storageSearchKeyword = async value => {
+    let searchKeywords = [];
+    const keywords = await AsyncStorage.getItem("searchKeywords");
+    if (!!keywords) {
+      searchKeywords = JSON.parse(keywords);
+      if (value in searchKeywords) {
+        const index = searchKeywords.indexOf(value);
+        searchKeywords.splice(index, 1);
+        searchKeywords.unshift(value);
+      } else {
+        searchKeywords.unshift(value);
+      }
+    } else {
+      searchKeywords.push(value);
+    }
+    searchKeywords.splice(5);
+    await AsyncStorage.setItem(
+      "searchKeywords",
+      JSON.stringify(searchKeywords)
+    );
+  };
+
   render() {
+    const {
+      leftIconPress,
+      rightIconPress,
+      onSearch,
+      onChangeText,
+      value
+    } = this.props;
     return (
       <View style={styles.searchBox}>
-        <TouchableOpacity onPress={this.props.leftIconPress}>
+        <TouchableOpacity onPress={leftIconPress}>
           <FontAwesome name="calendar" size={20} color={colors.gray05} />
         </TouchableOpacity>
 
@@ -26,9 +56,17 @@ export default class SearchBar extends Component {
           style={styles.inputText}
           keyboardType="web-search"
           placeholder="搜索展会"
+          onSubmitEditing={() => {
+            if (value && value.trim() !== "") {
+              this._storageSearchKeyword(value);
+              onSearch();
+            }
+          }}
+          onChangeText={onChangeText}
+          value={value}
         />
 
-        <TouchableOpacity onPress={this.props.rightIconPress}>
+        <TouchableOpacity onPress={rightIconPress}>
           <FeatherIcon name="filter" size={20} color={colors.gray05} />
         </TouchableOpacity>
       </View>
