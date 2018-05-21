@@ -30,6 +30,15 @@ export default class Exhibiter extends Component {
       >
         <Icon name="md-close" size={30} color={colors.black} />
       </TouchableOpacity>
+    ),
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Shop")}
+        style={styles.shopButton}
+      >
+        <Text style={styles.shopButtonText}>店铺</Text>
+        <FeatherIcon name="arrow-right" size={30} color={colors.black} />
+      </TouchableOpacity>
     )
   });
 
@@ -149,5 +158,15 @@ const styles = StyleSheet.create({
   },
   items: {
     marginBottom: 20
+  },
+  shopButton: {
+    marginRight: 20,
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  shopButtonText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: colors.lightBlack
   }
 });

@@ -6,9 +6,10 @@ import colors from "../../styles/colors";
 
 export default class Footer extends Component {
   render() {
+    const { gotoShopCard } = this.props;
     return (
       <View style={styles.wrapper}>
-        <TouchableOpacity style={styles.info}>
+        <TouchableOpacity style={styles.info} onPress={gotoShopCard}>
           <Text style={styles.infoText}>店铺详情</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.category}>
@@ -43,7 +44,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    borderTopColor: colors.gray06,
+    borderTopWidth: 1
   },
   info: {
     justifyContent: "center",
@@ -55,8 +58,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
 
     marginVertical: 20,
-    borderLeftColor: colors.gray05,
-    borderRightColor: colors.gray05,
+    borderLeftColor: colors.gray06,
+    borderRightColor: colors.gray06,
     borderLeftWidth: 1,
     borderRightWidth: 1
   },

@@ -14,8 +14,11 @@ import { axiosInstance } from "../../services";
 
 import ExhibiterList from "./ExhibiterList";
 import ExhibitionCard from "./ExhibitionCard";
+import MoreButton from "../MoreButton";
 
 // import exhibiters from "../../data/exhibiters";
+const PAGE_SIZE = 30;
+
 export default class ExhibitionDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerStyle: [transparentHeaderStyle, { paddingLeft: 20 }],
@@ -31,16 +34,41 @@ export default class ExhibitionDetail extends Component {
   });
 
   state = {
-    exhibiters: []
+    exhibiters: [],
+    hasMore: true,
+    page: 1
   };
 
   componentDidMount = async () => {
     const { navigation } = this.props;
     const { expo } = navigation.state.params;
-    const response = await axiosInstance.get(`getExhibitorsByExpo/${expo._id}`);
-    const exhibiters = response.data;
-    // console.log(exhibiters);
-    this.setState({ exhibiters, expo });
+    this.setState({ expo }, () => {
+      this.loadExhibiters(this.state.page, PAGE_SIZE);
+    });
+  };
+
+  _loadMore = () => {
+    this.setState(
+      prevState => ({
+        page: prevState.page + 1
+      }),
+      () => {
+        this.loadExhibiters(this.state.page, PAGE_SIZE);
+      }
+    );
+  };
+
+  loadExhibiters = async (page, pageSize) => {
+    const { expo } = this.state;
+    const response = await axiosInstance.get(
+      `getExhibitorsByExpo/${
+        expo._id
+      }?&currentPage=${page}&pageSize=${pageSize}`
+    );
+    const exhibiters = response.data.data;
+    this.setState(prevState => ({
+      exhibiters: [...prevState.exhibiters, ...exhibiters]
+    }));
   };
 
   _gotoExhibiter = exhibiter => {
@@ -50,7 +78,7 @@ export default class ExhibitionDetail extends Component {
   render() {
     const { navigation } = this.props;
     const { expo } = navigation.state.params;
-    const { exhibiters } = this.state;
+    const { exhibiters, hasMore } = this.state;
     if (!!exhibiters) {
       return (
         <View style={styles.wrapper}>
@@ -60,6 +88,24 @@ export default class ExhibitionDetail extends Component {
               exhibiters={exhibiters}
               gotoExhibiter={this._gotoExhibiter}
             />
+            {hasMore && (
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 15,
+                  marginBottom: 25,
+                  width: "100%"
+                }}
+              >
+                <MoreButton
+                  color={colors.lightBlack}
+                  size={14}
+                  title="更多..."
+                  onPress={this._loadMore}
+                />
+              </View>
+            )}
           </ScrollView>
         </View>
       );

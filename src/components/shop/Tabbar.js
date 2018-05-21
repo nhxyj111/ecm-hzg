@@ -33,7 +33,9 @@ export default class Tabbar extends Component {
   };
 
   _onPress = key => {
-    this.setState({ key });
+    this.setState({ key }, () => {
+      this.props.onTab(key);
+    });
   };
 
   render() {
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 5,
     backgroundColor: colors.white,
-    borderBottomColor: colors.gray05,
+    borderBottomColor: colors.gray06,
     borderBottomWidth: 1
   },
   tab: {

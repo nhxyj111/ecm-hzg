@@ -14,6 +14,7 @@ import colors from "../../styles/colors";
 
 export default class Header extends Component {
   render() {
+    const { goBack } = this.props;
     return (
       <ImageBackground
         style={styles.wrapper}
@@ -22,7 +23,7 @@ export default class Header extends Component {
         // borderRadius={3}
       >
         <View style={styles.searchBox}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={goBack}>
             <FeatherIcon name="arrow-left" size={20} color={colors.gray05} />
           </TouchableOpacity>
 

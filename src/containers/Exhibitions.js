@@ -47,7 +47,7 @@ export default class Exhibitions extends Component {
   componentDidMount = async () => {
     const expoList = await axiosInstance.get("searchExpo");
     // console.log(JSON.stringify(expoList.data));
-    this.setState({ expoList: expoList.data });
+    this.setState({ expoList: expoList.data.data });
   };
   _searchByCity = selectedCity => {
     this.setState(
