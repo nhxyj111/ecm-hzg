@@ -78,7 +78,10 @@ const styles = StyleSheet.create({
     width: cardWithHeight,
     height: cardWithHeight,
     marginRight: CARD_GAP,
-    marginLeft: CARD_GAP
+    marginLeft: CARD_GAP,
+    borderWidth: 2,
+    borderColor: colors.gray05,
+    borderRadius: 2
   },
   productWrapper: {
     position: "relative",

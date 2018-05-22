@@ -51,6 +51,7 @@ export default class Comment extends Component {
               style={styles.input}
               autoFocus={true}
               onBlur={this._onBlur}
+              underlineColorAndroid="transparent"
             />
           )}
         </View>

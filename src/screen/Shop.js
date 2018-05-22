@@ -39,7 +39,7 @@ export default class Shop extends Component {
         </View>
         <ScrollView
           style={styles.scrollview}
-          contentContainerStyle={{ paddingBottom: 80 }}
+          contentContainerStyle={{ paddingBottom: 80, zIndex: -1 }}
         >
           {tabKey === 0 ? <Recommend /> : <List />}
         </ScrollView>
@@ -56,5 +56,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.gray01
   },
-  header: {}
+  header: {},
+  scrollview: {},
+  footer: {
+    position: "relative"
+  }
 });

@@ -25,7 +25,7 @@ export default class SendInputField extends Component {
             <Icon name="picture-o" size={28} color={colors.green01} />
           </TouchableOpacity>
         )}
-        <TextInput style={styles.input} />
+        <TextInput style={styles.input} underlineColorAndroid="transparent" />
         <TouchableOpacity style={styles.sender}>
           <Icon name="send-o" size={28} color={colors.green01} />
         </TouchableOpacity>

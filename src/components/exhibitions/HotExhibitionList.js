@@ -12,6 +12,7 @@ import {
 
 import { STATIC_BASE } from "../../services";
 import { CARD_GAP, VW } from "../../constants";
+import colors from "../../styles/colors";
 
 const cardWithHeight = (VW - 8 * CARD_GAP) / 3;
 const defaultPhoto = "https://dummyimage.com/250/676767/a1a1a1";
@@ -67,7 +68,10 @@ const styles = StyleSheet.create({
     width: cardWithHeight,
     height: cardWithHeight,
     marginRight: CARD_GAP,
-    marginLeft: CARD_GAP
+    marginLeft: CARD_GAP,
+    borderWidth: 2,
+    borderColor: colors.gray05,
+    borderRadius: 2
   },
   image: {
     flex: 1,

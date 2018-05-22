@@ -39,7 +39,10 @@ const styles = StyleSheet.create({
   },
   bgImag: {
     height: cardWithHeight,
-    width: cardWithHeight
+    width: cardWithHeight,
+    borderWidth: 2,
+    borderColor: colors.gray05,
+    borderRadius: 2
   },
   exhibiterName: {
     fontSize: 16,

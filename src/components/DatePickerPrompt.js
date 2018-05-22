@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   DatePickerIOS as DatePicker,
+  // DatePickerAndroid as DatePicker,
   View,
   Text,
   StyleSheet,

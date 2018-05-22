@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   ScrollView
 } from "react-native";
+import Icon from "react-native-vector-icons/Feather";
 
 import colors from "../styles/colors";
 import InputField from "../components/InputField";
@@ -33,6 +34,13 @@ export default class Login extends Component {
     return (
       <KeyboardAvoidingView style={styles.wrapper} behavior="padding">
         <View style={styles.scrollViewWrapper}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.goBack()}
+            style={{ marginLeft: 20 }}
+          >
+            <Icon name="arrow-left" size={30} color={colors.white} />
+          </TouchableOpacity>
+
           <ScrollView style={styles.scrollView}>
             <Text style={styles.loginHeader}>用户登录</Text>
             <InputField

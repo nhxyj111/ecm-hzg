@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image, Alert } from "react-native";
+import { View, Text, StyleSheet, Image, Alert, Platform } from "react-native";
 import Swipeout from "react-native-swipeout";
 import Icon from "react-native-vector-icons/FontAwesome";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
@@ -31,7 +31,15 @@ export default class SellerItem extends Component {
     return (
       <View style={styles.wrapper}>
         <View style={styles.left}>
-          <View style={styles.imageWrapper}>
+          <View
+            style={[
+              styles.imageWrapper,
+              Platform.OS === "android" && {
+                borderColor: "transparent",
+                borderWidth: 1
+              }
+            ]}
+          >
             {isNew && <LeftTopTag />}
 
             <Image source={{ uri: photo }} style={styles.image} />
@@ -101,17 +109,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 5,
     borderBottomColor: colors.gray01,
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    overflow: "hidden"
   },
 
   left: {
     flexDirection: "row",
-    flex: 3
+    flex: 3,
+    overflow: "hidden"
   },
 
   imageWrapper: {
     position: "relative",
     overflow: "hidden"
+    // borderWidth: 1, // only for android
+    // borderColor: "transparent" // only for android
   },
 
   image: {

@@ -16,6 +16,7 @@ const AppNav = createStackNavigator(
     Logined: { screen: LoginedTabNav },
     // TODO: for test
     ShopNav: { screen: ShopNav },
+
     // TODO:
     Welcome: { screen: Welcome },
 

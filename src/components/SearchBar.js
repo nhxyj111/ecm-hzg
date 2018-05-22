@@ -64,6 +64,7 @@ export default class SearchBar extends Component {
           }}
           onChangeText={onChangeText}
           value={value}
+          underlineColorAndroid="transparent"
         />
 
         <TouchableOpacity onPress={rightIconPress}>

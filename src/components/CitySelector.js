@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  PickerIOS as Picker
+  // PickerIOS as Picker
+  Picker
 } from "react-native";
 import cityData from "../data/city.json";
 import colors from "../styles/colors";

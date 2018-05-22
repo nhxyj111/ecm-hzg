@@ -4,7 +4,9 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  DatePickerAndroid,
+  Platform
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 
@@ -16,8 +18,14 @@ import newsData from "../data/news";
 
 import SearchBar from "../components/SearchBar";
 import CitySelector from "../components/CitySelector";
-import DatePickerPrompt from "../components/DatePickerPrompt";
 import HotExhibitionList from "../components/exhibitions/HotExhibitionList";
+
+// import DatePickerPrompt from "../components/DatePickerPrompt.android";
+
+const DatePickerPrompt = Platform.select({
+  ios: () => require("../components/DatePickerPrompt").default,
+  android: () => require("../components/DatePickerPromptAndroid").default
+})();
 
 import colors from "../styles/colors";
 import { axiosInstance } from "../services";
@@ -39,9 +47,20 @@ export default class Exhibitions extends Component {
     this.setState({ showCitySelector: !this.state.showCitySelector });
   };
 
-  _toggleDatePicker = () => {
+  _toggleDatePicker = async () => {
     // alert("_toggleDatePicker");
     this.setState({ showDatePicker: !this.state.showDatePicker });
+
+    // try {
+    //   const { action, year, month, day } = await DatePickerAndroid.open({
+    //     date: new Date()
+    //   });
+    //   if (action !== DatePickerAndroid.dismissedAction) {
+    //     // Selected year, month (0-11), day
+    //   }
+    // } catch ({ code, message }) {
+    //   console.warn("Cannot open date picker", message);
+    // }
   };
 
   componentDidMount = async () => {

@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
@@ -13,8 +14,11 @@ import { transparentHeaderStyle } from "../../styles/navigation";
 import GroupButtons2 from "../GroupButtons2";
 import colors from "../../styles/colors";
 import ExhibitionItem from "./ExhibitionItem";
+import MoreButton from "../MoreButton";
 import { axiosInstance } from "../../services";
 // import ehbData from "../../data/exhibitions";
+
+const PAGE_SIZE = 30;
 
 const GBConfig = [
   {
@@ -43,7 +47,9 @@ export default class ExhibitionList extends Component {
 
   state = {
     now: moment(new Date()).format("YYYY-MM-DD"),
-    results: []
+    results: [],
+    page: 1,
+    hasMore: true
   };
 
   componentDidMount = () => {};
@@ -85,26 +91,49 @@ export default class ExhibitionList extends Component {
     return defaultKey;
   };
 
-  _loadResult = async key => {
+  _loadResult = async (key, page, pageSize) => {
     const { startDate, endDate } = this._getStartEndDates(key);
     const response = await axiosInstance.get(
-      `searchExpo?start=${startDate}&end=${endDate}`
+      `searchExpo?start=${startDate}&end=${endDate}&currentPage=${page}&pageSize=${pageSize}`
     );
-    const results = response.data;
-    this.setState({ results });
+    const results = response.data.data;
+    const totalCount = response.data.totalCount;
+    this.setState(prevState => ({
+      results: [...prevState.results, ...results],
+      hasMore: totalCount <= PAGE_SIZE * page ? false : true
+    }));
     // console.log(results);
   };
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     const key = this._getDefaultKey();
-    this._loadResult(key);
+    this.setState({ key }, () => {
+      this._loadResult(key, 1, PAGE_SIZE);
+    });
   };
 
   _onChange = key => {
-    this._loadResult(key);
+    this.setState(
+      () => ({ results: [], key }),
+      () => {
+        this._loadResult(key, 1, PAGE_SIZE);
+      }
+    );
+  };
+
+  _loadMore = () => {
+    this.setState(
+      prevState => ({
+        page: prevState.page + 1
+      }),
+      () => {
+        this._loadResult(this.state.key, this.state.page, PAGE_SIZE);
+      }
+    );
   };
 
   render() {
+    const { hasMore } = this.state;
     return (
       <View style={styles.wrapper}>
         <View style={styles.heading}>
@@ -115,7 +144,7 @@ export default class ExhibitionList extends Component {
           />
         </View>
 
-        <View style={styles.content}>
+        <ScrollView style={styles.content}>
           <FlatList
             data={this.state.results}
             renderItem={({ item, index }) => (
@@ -129,8 +158,29 @@ export default class ExhibitionList extends Component {
               />
             )}
             keyExtractor={item => item._id}
+            scrollToEnd={() => {
+              console.log("test for scrollToEnd method");
+            }}
           />
-        </View>
+          {hasMore && (
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 15,
+                marginBottom: 25,
+                width: "100%"
+              }}
+            >
+              <MoreButton
+                color={colors.lightBlack}
+                size={14}
+                title="更多..."
+                onPress={this._loadMore}
+              />
+            </View>
+          )}
+        </ScrollView>
       </View>
     );
   }
@@ -146,6 +196,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+
   content: {
     marginHorizontal: 0,
     marginTop: 15

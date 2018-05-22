@@ -39,7 +39,10 @@ const styles = StyleSheet.create({
   wrapper: {
     margin: 0,
     position: "relative",
-    marginBottom: 15
+    marginBottom: 15,
+    borderWidth: 2,
+    borderColor: colors.gray05,
+    borderRadius: 2
   },
   bgImag: {
     height: cardWithHeight,

@@ -66,7 +66,10 @@ export default class ProductDetail extends Component {
           </ImageBackground>
 
           <View style={styles.newcommentWrapper}>
-            <TextInput placeholder="请输入评论" />
+            <TextInput
+              placeholder="请输入评论"
+              underlineColorAndroid="transparent"
+            />
           </View>
         </View>
 

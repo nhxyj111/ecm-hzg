@@ -24,7 +24,7 @@ export default class Header extends Component {
       >
         <View style={styles.searchBox}>
           <TouchableOpacity onPress={goBack}>
-            <FeatherIcon name="arrow-left" size={20} color={colors.gray05} />
+            <FeatherIcon name="arrow-left" size={20} color={colors.gray02} />
           </TouchableOpacity>
 
           <TextInput
@@ -32,10 +32,11 @@ export default class Header extends Component {
             keyboardType="web-search"
             placeholder="搜本店铺"
             onSubmitEditing={() => {}}
+            underlineColorAndroid="transparent"
           />
 
           <TouchableOpacity>
-            <FeatherIcon name="list" size={20} color={colors.gray05} />
+            <FeatherIcon name="list" size={20} color={colors.gray02} />
           </TouchableOpacity>
         </View>
 

@@ -20,6 +20,7 @@ export default class SearchBar2 extends Component {
           keyboardType="web-search"
           placeholder={placeholder}
           onFocus={onFocus}
+          underlineColorAndroid="transparent"
         />
 
         <TouchableOpacity onPress={() => onSearch()}>

@@ -29,7 +29,7 @@ const trade = [
     expireTime: "2088-06-01 12:12:12",
     publisher: " 王小二",
     phone: "133*****990",
-    isNew: false,
+    isNew: true,
     watch: 108,
     likes: 999,
     photo: "https://dummyimage.com/250/9a9a78/336688" //只用于出售

@@ -116,6 +116,9 @@ export default class SellerList extends Component {
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    overflow: "hidden"
+  },
   flatlist: {},
   content: {
     paddingHorizontal: 20,

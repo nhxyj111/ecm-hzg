@@ -220,6 +220,7 @@ export default class PickerTest extends Component {
           <Text>isPickerShow</Text>
         </TouchableOpacity>
         <TextInput
+          underlineColorAndroid="transparent"
           placeholder="test picker with input"
           style={{
             height: 40,

@@ -66,8 +66,10 @@ export default class ExhibitionDetail extends Component {
       }?&currentPage=${page}&pageSize=${pageSize}`
     );
     const exhibiters = response.data.data;
+    const totalCount = response.data.totalCount;
     this.setState(prevState => ({
-      exhibiters: [...prevState.exhibiters, ...exhibiters]
+      exhibiters: [...prevState.exhibiters, ...exhibiters],
+      hasMore: totalCount <= PAGE_SIZE * page ? false : true
     }));
   };
 

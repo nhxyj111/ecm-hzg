@@ -77,25 +77,26 @@ export default class StoreItemCard extends Component {
             </Text>
           </View>
 
-          <View>
-            <View>
-              <View>
-                <Text>库存</Text>
-                <Text>120</Text>
+          <View style={styles.spec}>
+            <View style={styles.specItem}>
+              <View style={styles.itemWrapper}>
+                <Text style={styles.itemText}>库存</Text>
+                <Text style={styles.itemText}>120</Text>
               </View>
-              <View>
-                <Text>产品代码</Text>
-                <Text>{product.id}</Text>
+              <View style={styles.itemWrapper}>
+                <Text style={styles.itemText}>产品代码</Text>
+                <Text style={styles.itemText}>{product.id}</Text>
               </View>
             </View>
-            <View>
-              <View>
-                <Text>分享</Text>
-                <Text>120</Text>
+
+            <View style={styles.specItem}>
+              <View style={styles.itemWrapper}>
+                <Text style={styles.itemText}>分享</Text>
+                <Text style={styles.itemText}>120</Text>
               </View>
-              <View>
-                <Text>喜欢</Text>
-                <Text>120</Text>
+              <View style={styles.itemWrapper}>
+                <Text style={styles.itemText}>喜欢</Text>
+                <Text style={styles.itemText}>120</Text>
               </View>
             </View>
           </View>
@@ -219,5 +220,14 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: "600",
     fontSize: 18
+  },
+  spec: { flexDirection: "column", marginTop: 10 },
+  specItem: { flexDirection: "row", marginTop: 10 },
+  itemWrapper: { flex: 1, alignSelf: "center" },
+  itemText: {
+    fontSize: 13,
+    color: colors.lightBlack,
+    alignSelf: "center",
+    marginTop: 3
   }
 });

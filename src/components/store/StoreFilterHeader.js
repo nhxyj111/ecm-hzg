@@ -48,6 +48,7 @@ export default class StoreFilterHeader extends Component {
           style={styles.inputText}
           keyboardType="web-search"
           placeholder="搜索展会"
+          underlineColorAndroid="transparent"
         />
 
         <View style={styles.rightWrapper}>
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1
   },
   inputText: {
+    flex: 1,
     fontSize: 20,
     color: colors.lightBlack
   },
