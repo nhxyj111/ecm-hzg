@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  DatePickerAndroid,
   Platform
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -17,7 +16,7 @@ import newsData from "../data/news";
 // import PickerTest from "../components/PickerTest";
 
 import SearchBar from "../components/SearchBar";
-import CitySelector from "../components/CitySelector";
+// import CitySelector from "../components/CitySelector";
 import HotExhibitionList from "../components/exhibitions/HotExhibitionList";
 
 // import DatePickerPrompt from "../components/DatePickerPrompt.android";
@@ -25,6 +24,11 @@ import HotExhibitionList from "../components/exhibitions/HotExhibitionList";
 const DatePickerPrompt = Platform.select({
   ios: () => require("../components/DatePickerPrompt").default,
   android: () => require("../components/DatePickerPromptAndroid").default
+})();
+
+const CitySelector = Platform.select({
+  ios: () => require("../components/CitySelector").default,
+  android: () => require("../components/CitySelectorAndroid").default
 })();
 
 import colors from "../styles/colors";
@@ -50,17 +54,6 @@ export default class Exhibitions extends Component {
   _toggleDatePicker = async () => {
     // alert("_toggleDatePicker");
     this.setState({ showDatePicker: !this.state.showDatePicker });
-
-    // try {
-    //   const { action, year, month, day } = await DatePickerAndroid.open({
-    //     date: new Date()
-    //   });
-    //   if (action !== DatePickerAndroid.dismissedAction) {
-    //     // Selected year, month (0-11), day
-    //   }
-    // } catch ({ code, message }) {
-    //   console.warn("Cannot open date picker", message);
-    // }
   };
 
   componentDidMount = async () => {
@@ -78,6 +71,10 @@ export default class Exhibitions extends Component {
         });
       }
     );
+  };
+
+  _closeDatePickerPrompt = () => {
+    this.setState({ showDatePicker: false });
   };
 
   _searchByDate = (start, end) => {
@@ -163,6 +160,7 @@ export default class Exhibitions extends Component {
         <DatePickerPrompt
           show={showDatePicker}
           searchByDate={this._searchByDate}
+          close={this._closeDatePickerPrompt}
         />
       </View>
     );

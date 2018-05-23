@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green01
   },
   scrollViewWrapper: {
-    marginTop: 70,
+    marginTop: 40,
     padding: 0,
     flex: 1,
     position: "absolute",

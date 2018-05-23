@@ -26,12 +26,20 @@ export default class StoreFilterModal extends Component {
     )
   });
 
+  state = {
+    categories: []
+  };
+
+  componentDidMount() {
+    this.setState({ categories });
+  }
+
   get Sections() {
-    return categories.map(c => c.section);
+    return this.state.categories.map(c => c.section);
   }
 
   filterSectionList = section => {
-    return categories.filter(c => c.section === section);
+    return this.state.categories.filter(c => c.section === section);
   };
 
   _renderSectionTitle = (content, index, isActive) => {
@@ -79,13 +87,15 @@ export default class StoreFilterModal extends Component {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 80 }}
         >
-          <Accordion
-            sections={this.Sections}
-            renderSectionTitle={this._renderSectionTitle}
-            renderHeader={this._renderHeader}
-            renderContent={this._renderContent}
-            underlayColor={colors.green01}
-          />;
+          {this.state.categories.length > 0 && (
+            <Accordion
+              sections={this.Sections}
+              renderSectionTitle={this._renderSectionTitle}
+              renderHeader={this._renderHeader}
+              renderContent={this._renderContent}
+              underlayColor={colors.green01}
+            />
+          )}
         </ScrollView>
       </View>
     );

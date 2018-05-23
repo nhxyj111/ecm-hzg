@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import StarRating from "react-native-star-rating";
 import Swiper from "react-native-swiper";
+import { Font } from "expo";
 
 import StoreFilterHeader from "./StoreFilterHeader";
 
@@ -21,9 +22,21 @@ export default class StoreItemCard extends Component {
     header: null
   });
 
+  state = {
+    fontLoaded: false
+  };
+
+  componentDidMount = async () => {
+    await Font.loadAsync({
+      Arial: require("../../fonts/Arial.ttf")
+    });
+    this.setState({ fontLoaded: true });
+  };
+
   render() {
     const { navigation } = this.props;
     const { product } = navigation.state.params;
+    const { fontLoaded } = this.state;
     return (
       <View style={styles.wrapper}>
         <StoreFilterHeader showBackIcon={true} navigation={navigation} />
@@ -53,24 +66,26 @@ export default class StoreItemCard extends Component {
           contentContainerStyle={{ paddingBottom: 80 }}
           style={{ marginTop: 15 }}
         >
-          <Swiper
-            style={styles.swiper}
-            horizontal={true}
-            showsButtons={true}
-            loop={true}
-            removeClippedSubviews={false}
-          >
-            <View style={styles.slide2}>
-              <Text>Beautiful</Text>
-            </View>
-            <View style={styles.slide1}>
-              <Text>Hello Swiper</Text>
-            </View>
+          {fontLoaded && (
+            <Swiper
+              style={styles.swiper}
+              horizontal={true}
+              showsButtons={true}
+              loop={true}
+              removeClippedSubviews={false}
+            >
+              <View style={styles.slide2}>
+                <Text>Beautiful</Text>
+              </View>
+              <View style={styles.slide1}>
+                <Text>Hello Swiper</Text>
+              </View>
 
-            <View style={styles.slide3}>
-              <Text>And simple</Text>
-            </View>
-          </Swiper>
+              <View style={styles.slide3}>
+                <Text>And simple</Text>
+              </View>
+            </Swiper>
+          )}
           <View style={styles.more}>
             <Text>
               详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.详细商品介绍,详细商品介绍,详细商品介绍.

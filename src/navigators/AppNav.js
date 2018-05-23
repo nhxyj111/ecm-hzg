@@ -13,9 +13,10 @@ import ShopNav from "./ShopNav";
 const AppNav = createStackNavigator(
   {
     // TODO: for test
-    Logined: { screen: LoginedTabNav },
-    // TODO: for test
     ShopNav: { screen: ShopNav },
+
+    // TODO: for test
+    Logined: { screen: LoginedTabNav },
 
     // TODO:
     Welcome: { screen: Welcome },

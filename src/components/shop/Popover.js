@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 10,
     borderWidth: 1,
-    alignItems: "center"
+    alignItems: "center",
+    overflow: "visible"
   },
   arrow: {
     width: 10,
