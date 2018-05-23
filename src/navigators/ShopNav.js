@@ -4,12 +4,12 @@ import { createStackNavigator } from "react-navigation";
 import Shop from "../screen/Shop";
 import ShopCard from "../screen/ShopCard";
 import ShopSearch from "../screen/ShopSearch";
-import Good from "../components/shop/Good";
+import ShopGood from "../screen/ShopGood";
 
 export default createStackNavigator(
   {
     // TODO: test
-    Good: { screen: Good },
+    ShopGood: { screen: ShopGood },
 
     Shop: { screen: Shop },
     ShopSearch: { screen: ShopSearch },

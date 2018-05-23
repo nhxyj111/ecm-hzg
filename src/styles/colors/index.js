@@ -21,5 +21,6 @@ export default {
   starYellow: "#FF8800",
   tlBlue: "rgb(37,146,252)",
   tlGreen: "rgb(85,192,45)",
-  tlRed: "rgb(218,35,48)"
+  tlRed: "rgb(218,35,48)",
+  cartRed: "rgb(238,51,55)"
 };
