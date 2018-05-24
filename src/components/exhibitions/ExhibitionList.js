@@ -16,6 +16,7 @@ import colors from "../../styles/colors";
 import ExhibitionItem from "./ExhibitionItem";
 import MoreButton from "../MoreButton";
 import { axiosInstance } from "../../services";
+import NoResult from "../NoResult";
 // import ehbData from "../../data/exhibitions";
 
 const PAGE_SIZE = 30;
@@ -49,7 +50,9 @@ export default class ExhibitionList extends Component {
     now: moment(new Date()).format("YYYY-MM-DD"),
     results: [],
     page: 1,
-    hasMore: true
+    hasMore: true,
+    loading: false,
+    totalCount: 0
   };
 
   componentDidMount = () => {};
@@ -92,6 +95,7 @@ export default class ExhibitionList extends Component {
   };
 
   _loadResult = async (key, page, pageSize) => {
+    this.setState({ loading: true });
     const { startDate, endDate } = this._getStartEndDates(key);
     const response = await axiosInstance.get(
       `searchExpo?start=${startDate}&end=${endDate}&currentPage=${page}&pageSize=${pageSize}`
@@ -100,7 +104,9 @@ export default class ExhibitionList extends Component {
     const totalCount = response.data.totalCount;
     this.setState(prevState => ({
       results: [...prevState.results, ...results],
-      hasMore: totalCount <= PAGE_SIZE * page ? false : true
+      hasMore: totalCount <= PAGE_SIZE * page ? false : true,
+      loading: false,
+      totalCount
     }));
     // console.log(results);
   };
@@ -133,7 +139,7 @@ export default class ExhibitionList extends Component {
   };
 
   render() {
-    const { hasMore } = this.state;
+    const { hasMore, loading, totalCount } = this.state;
     return (
       <View style={styles.wrapper}>
         <View style={styles.heading}>
@@ -159,9 +165,10 @@ export default class ExhibitionList extends Component {
             )}
             keyExtractor={item => item._id}
             scrollToEnd={() => {
-              console.log("test for scrollToEnd method");
+              // console.log("test for scrollToEnd method");
             }}
           />
+          {loading === false && totalCount === 0 && <NoResult />}
           {hasMore && (
             <View
               style={{
@@ -177,6 +184,7 @@ export default class ExhibitionList extends Component {
                 size={14}
                 title="更多..."
                 onPress={this._loadMore}
+                disabled={loading}
               />
             </View>
           )}

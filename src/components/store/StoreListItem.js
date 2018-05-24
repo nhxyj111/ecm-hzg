@@ -10,13 +10,18 @@ const imageHeight = cardWidth / 1.5;
 export default class StoreListItem extends Component {
   render() {
     const { onPress, product } = this.props;
-    const { photo, desc, price } = product;
+    const { MERCHANDISE_NAME, BRIEF } = product;
 
     return (
       <TouchableOpacity style={styles.wrapper} onPress={() => onPress(product)}>
-        <Image source={{ uri: photo }} style={styles.image} />
-        <Text style={styles.desc}>{desc}</Text>
-        <Text style={styles.price}>¥ {price}</Text>
+        <Image
+          source={{ uri: "https://dummyimage.com/250/9a9a78/336688" }}
+          style={styles.image}
+        />
+        <Text style={styles.desc}>
+          {MERCHANDISE_NAME}/{BRIEF}
+        </Text>
+        <Text style={styles.price}>¥ {1001}</Text>
       </TouchableOpacity>
     );
   }

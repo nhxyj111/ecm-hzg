@@ -14,10 +14,14 @@ import IconBadge from "react-native-icon-badge";
 import colors from "../../styles/colors";
 
 export default class StoreFilterHeader extends Component {
+  state = {
+    value: ""
+  };
   render() {
     // const { routeName } = this.props.navigation;
     // console.log(JSON.stringify(this.props.navigation));
-    const { showBackIcon, navigation } = this.props;
+    const { showBackIcon, navigation, onFilter } = this.props;
+
     return (
       <View style={styles.wrapper}>
         <View style={styles.leftWrapper}>
@@ -47,8 +51,13 @@ export default class StoreFilterHeader extends Component {
         <TextInput
           style={styles.inputText}
           keyboardType="web-search"
-          placeholder="搜索展会"
+          placeholder="搜索商品(展会展品)"
           underlineColorAndroid="transparent"
+          onChangeText={value => this.setState({ value })}
+          value={this.state.value}
+          onSubmitEditing={() => {
+            onFilter(this.state.value);
+          }}
         />
 
         <View style={styles.rightWrapper}>
@@ -106,7 +115,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     flex: 1,
-    fontSize: 20,
+    fontSize: 16,
     color: colors.lightBlack
   },
 

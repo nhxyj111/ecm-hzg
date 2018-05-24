@@ -13,7 +13,7 @@ import GoodDescService from "./GoodDescService";
 import colors from "../../../styles/colors";
 export default class GoodDesc extends Component {
   state = {
-    selectedTab: 3
+    selectedTab: 1
   };
 
   _onSelect = selectedTab => {

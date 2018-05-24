@@ -29,7 +29,7 @@ export default class Shop extends Component {
   };
 
   _goBack = () => {
-    this.props.navigation.navigate("Exhibiter");
+    this.props.navigation.goBack();
   };
 
   _togglePopover = () => {

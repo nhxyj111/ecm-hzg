@@ -6,7 +6,11 @@ const hiddenTabbarRoutes = [
   "ProductFilterModal",
   "ExhibitionList",
   "Exhibiter",
-  "ExhibitionSearchResults"
+  "ExhibitionSearchResults",
+  "Shop",
+  "ShopSearch",
+  "ShopCard",
+  "ShopGood"
 ];
 
 export const isHiddenTabbarRoute = routes => {
@@ -19,9 +23,3 @@ export const isHiddenTabbarRoute = routes => {
   }
   return false;
 };
-
-// routes &&
-//   routes.length === 2 &&
-//   (routes[1].routeName === "ExhibitionDetail" ||
-//     routes[1].routeName === "StoreFilterModal" ||
-//     routes[1].routeName === "StoreItemCard");

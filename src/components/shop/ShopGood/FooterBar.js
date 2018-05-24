@@ -7,6 +7,8 @@ import colors from "../../../styles/colors";
 
 export default class FooterBar extends Component {
   render() {
+    const { gotoShop } = this.props;
+
     return (
       <View style={styles.wrapper}>
         <View style={styles.left}>
@@ -15,7 +17,7 @@ export default class FooterBar extends Component {
             <Text style={styles.text}>供应商</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.tabWrapper}>
+          <TouchableOpacity style={styles.tabWrapper} onPress={gotoShop}>
             <Entypo name="shop" size={24} color={colors.gray02} />
             <Text style={styles.text}>店铺</Text>
           </TouchableOpacity>

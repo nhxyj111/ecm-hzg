@@ -8,12 +8,11 @@ import ShopGood from "../screen/ShopGood";
 
 export default createStackNavigator(
   {
-    // TODO: test
-    ShopGood: { screen: ShopGood },
-
     Shop: { screen: Shop },
     ShopSearch: { screen: ShopSearch },
-    ShopCard: { screen: ShopCard }
+    ShopCard: { screen: ShopCard },
+    // TODO: test
+    ShopGood: { screen: ShopGood }
   },
   {
     mode: "modal"

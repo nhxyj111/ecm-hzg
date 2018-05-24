@@ -35,6 +35,12 @@ import ProductFilterModal from "../components/store/ProductFilterModal";
 import Shopcart from "../components/store/Shopcart";
 import Check from "../components/store/Check";
 
+// shop
+import Shop from "../screen/Shop";
+import ShopCard from "../screen/ShopCard";
+import ShopSearch from "../screen/ShopSearch";
+import ShopGood from "../screen/ShopGood";
+
 const ExhibitionsTab = createStackNavigator(
   {
     Exhibitions: { screen: Exhibitions },
@@ -58,7 +64,13 @@ const StoreTab = createStackNavigator(
     Store: { screen: Store },
     StoreFilterModal: { screen: StoreFilterModal },
     StoreItemCard: { screen: StoreItemCard },
-    ProductFilterModal: { screen: ProductFilterModal }
+    ProductFilterModal: { screen: ProductFilterModal },
+
+    // shop
+    Shop: { screen: Shop },
+    ShopSearch: { screen: ShopSearch },
+    ShopCard: { screen: ShopCard },
+    ShopGood: { screen: ShopGood }
   },
   {
     mode: "modal"

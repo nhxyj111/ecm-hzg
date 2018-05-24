@@ -55,6 +55,10 @@ export default class ShopGood extends Component {
     this.setState({ selectedTab });
   };
 
+  _gotoShop = id => {
+    this.props.navigation.navigate("Shop");
+  };
+
   _renderTabContent = () => {
     const { selectedTab } = this.state;
     if (selectedTab === 1) {
@@ -72,7 +76,7 @@ export default class ShopGood extends Component {
     return (
       <Animated.View style={[styles.wrapper, { transform: [{ scale }] }]}>
         <View style={styles.nav}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <Feather name="arrow-left" color={colors.lightBlack} size={28} />
           </TouchableOpacity>
 
@@ -96,7 +100,7 @@ export default class ShopGood extends Component {
             {this._renderTabContent()}
           </ScrollView>
         </View>
-        <FooterBar />
+        <FooterBar gotoShop={this._gotoShop} />
 
         {showTagPopover && <Veil />}
 
