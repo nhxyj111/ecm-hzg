@@ -7,14 +7,85 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
+import EvilIcons from "react-native-vector-icons/EvilIcons";
+
+import TagRadioButtonGroup from "./TagRadioButtonGroup";
+import CountButtonGroup from "./CountButtonGroup";
 
 import colors from "../../../styles/colors";
 import { VH } from "../../../constants";
 const POPOVER_HEIGHT = VH * 0.7;
 
+const GROUP_COLOR = {
+  type: "color",
+  data: [
+    {
+      id: 1,
+      title: "白色",
+      inStock: true
+    },
+    {
+      id: 2,
+      title: "黑色",
+      inStock: true
+    }
+  ]
+};
+
+const GROUP_TYPE = {
+  type: "type",
+  data: [
+    {
+      id: 1,
+      title: "Type-s静音有刻",
+      inStock: false
+    },
+    {
+      id: 2,
+      title: "Type-s静音无刻",
+      inStock: true
+    },
+    {
+      id: 3,
+      title: "PRO有刻",
+      inStock: true
+    },
+    {
+      id: 4,
+      title: "PRO有刻蓝牙版",
+      inStock: true
+    },
+    {
+      id: 5,
+      title: "PRO无刻",
+      inStock: true
+    },
+    {
+      id: 6,
+      title: "PRO无刻蓝牙版",
+      inStock: true
+    }
+  ]
+};
+
 export default class TagPopover extends Component {
+  state = {
+    selected: { color: 1, type: 3 }
+  };
+
+  _onSelect = (type, id) => {
+    this.setState(prevState => ({
+      selected: {
+        ...prevState.selected,
+        [type]: id
+      }
+    }));
+  };
+
   render() {
-    const { scale } = this.props;
+    const { scale, toggleTagPopover } = this.props;
+    const { selected } = this.state;
+
     return (
       <View style={[styles.wrapper, { transform: [{ scale }] }]}>
         <View style={styles.heading}>
@@ -24,15 +95,39 @@ export default class TagPopover extends Component {
               style={styles.image}
             />
           </View>
-          <View>
-            <Text>¥2190.00</Text>
-            <Text>仅剩2件</Text>
-            <Text>商品编号 : 2341567</Text>
+          <View style={styles.descWrapper}>
+            <View>
+              <Text style={styles.price}>¥2190.00</Text>
+              <Text style={styles.instock}>仅剩2件</Text>
+              <Text style={styles.pid}>商品编号 : 2341567</Text>
+            </View>
+            <TouchableOpacity style={styles.close} onPress={toggleTagPopover}>
+              <EvilIcons name="close" size={24} color={colors.gray02} />
+            </TouchableOpacity>
           </View>
         </View>
 
         <ScrollView style={styles.scrollview}>
-          <Text>TagPopover</Text>
+          <View style={styles.groupWrapper}>
+            <Text style={styles.groupTitle}>颜色</Text>
+            <TagRadioButtonGroup
+              group={GROUP_COLOR}
+              selectedId={selected.color}
+              onSelect={this._onSelect}
+            />
+          </View>
+          <View style={styles.groupWrapper}>
+            <Text style={styles.groupTitle}>版本</Text>
+            <TagRadioButtonGroup
+              group={GROUP_TYPE}
+              selectedId={selected.type}
+              onSelect={this._onSelect}
+            />
+          </View>
+          <View style={styles.countWrapper}>
+            <Text style={styles.countTitle}>数量</Text>
+            <CountButtonGroup />
+          </View>
         </ScrollView>
 
         <View style={styles.addWrapper}>
@@ -53,12 +148,16 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    bottom: -40,
+    bottom: -20,
     zIndex: 99,
-    padding: 25
+    padding: 0
   },
   heading: {
-    flexDirection: "row"
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    borderBottomColor: colors.gray06,
+    borderBottomWidth: 1,
+    paddingBottom: 10
   },
   imageWrapper: {
     height: 100,
@@ -67,7 +166,7 @@ const styles = StyleSheet.create({
     borderColor: colors.gray05,
     borderWidth: 1,
     overflow: "hidden",
-    marginTop: -60
+    marginTop: -25
   },
   image: {
     width: 100,
@@ -82,7 +181,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    height: 100,
+    height: 60,
     alignItems: "center"
   },
   addToCart: {
@@ -91,5 +190,54 @@ const styles = StyleSheet.create({
   addText: {
     fontSize: 18,
     color: colors.white
+  },
+  descWrapper: {
+    marginTop: 10,
+    marginLeft: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flex: 1
+  },
+  price: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.cartRed,
+    marginBottom: 5
+  },
+  instock: {
+    fontSize: 12,
+    color: colors.cartRed,
+    marginBottom: 3
+  },
+  pid: {
+    fontSize: 12,
+    color: colors.gray02
+  },
+  close: {
+    //alignSelf: "flex-start"
+  },
+
+  groupWrapper: {
+    paddingHorizontal: 10,
+    paddingTop: 15
+  },
+  groupTitle: {
+    marginBottom: 10,
+    fontSize: 14,
+    color: colors.gray02
+  },
+  countWrapper: {
+    borderBottomColor: colors.gray06,
+    borderBottomWidth: 1,
+    paddingBottom: 10,
+    paddingHorizontal: 10,
+    paddingTop: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  countTitle: {
+    fontSize: 14,
+    color: colors.gray02
   }
 });

@@ -10,6 +10,8 @@ const IMAGE_WIDTH = VW - 2 * 15;
 
 export default class GoodMain extends Component {
   render() {
+    const { toggleTagPopover } = this.props;
+
     return (
       <View style={styles.wrapper}>
         <View style={styles.imageWrapper}>
@@ -52,7 +54,7 @@ export default class GoodMain extends Component {
             </View>
             <Text style={styles.panelContentAlert}>仅剩2件</Text>
           </View>
-          <TouchableOpacity style={styles.panelAct}>
+          <TouchableOpacity style={styles.panelAct} onPress={toggleTagPopover}>
             <Entypo
               name="dots-three-horizontal"
               color={colors.gray02}

@@ -24,7 +24,14 @@ export default class ShopGood extends Component {
   });
 
   state = {
-    selectedTab: 1
+    selectedTab: 1,
+    showTagPopover: false
+  };
+
+  _toggleTagPopover = () => {
+    this.setState(prevState => ({
+      showTagPopover: !prevState.showTagPopover
+    }));
   };
 
   _onSelect = selectedTab => {
@@ -34,7 +41,7 @@ export default class ShopGood extends Component {
   _renderTabContent = () => {
     const { selectedTab } = this.state;
     if (selectedTab === 1) {
-      return <GoodMain />;
+      return <GoodMain toggleTagPopover={this._toggleTagPopover} />;
     } else if (selectedTab === 2) {
       return <GoodDesc />;
     } else {
@@ -43,9 +50,14 @@ export default class ShopGood extends Component {
   };
 
   render() {
-    const { selectedTab } = this.state;
+    const { selectedTab, showTagPopover } = this.state;
     return (
-      <View style={styles.wrapper}>
+      <View
+        style={[
+          styles.wrapper,
+          showTagPopover && { transform: [{ scale: 0.9 }] }
+        ]}
+      >
         <View style={styles.nav}>
           <TouchableOpacity>
             <Feather name="arrow-left" color={colors.lightBlack} size={28} />
@@ -73,8 +85,10 @@ export default class ShopGood extends Component {
         </View>
         <FooterBar />
 
-        <Veil />
-        <TagPopover scale={1.2} />
+        {showTagPopover && <Veil />}
+        {showTagPopover && (
+          <TagPopover scale={1.111} toggleTagPopover={this._toggleTagPopover} />
+        )}
       </View>
     );
   }
@@ -83,8 +97,7 @@ export default class ShopGood extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: colors.white,
-    transform: [{ scale: 0.9 }]
+    backgroundColor: colors.white
   },
   nav: {
     borderBottomColor: colors.gray06,
