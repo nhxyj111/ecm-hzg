@@ -5,7 +5,8 @@ import {
   StyleSheet,
   ScrollView,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Animated
 } from "react-native";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 
@@ -70,7 +71,8 @@ const GROUP_TYPE = {
 
 export default class TagPopover extends Component {
   state = {
-    selected: { color: 1, type: 3 }
+    selected: { color: 1, type: 3 },
+    bottom: new Animated.Value(-1000)
   };
 
   _onSelect = (type, id) => {
@@ -82,12 +84,26 @@ export default class TagPopover extends Component {
     }));
   };
 
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.show) {
+      Animated.timing(this.state.bottom, {
+        toValue: -20
+      }).start();
+    } else {
+      Animated.timing(this.state.bottom, {
+        toValue: -1000
+      }).start();
+    }
+  };
+
   render() {
     const { scale, toggleTagPopover } = this.props;
-    const { selected } = this.state;
+    const { selected, bottom } = this.state;
 
     return (
-      <View style={[styles.wrapper, { transform: [{ scale }] }]}>
+      <Animated.View
+        style={[styles.wrapper, { bottom, transform: [{ scale }] }]}
+      >
         <View style={styles.heading}>
           <View style={styles.imageWrapper}>
             <Image
@@ -135,7 +151,7 @@ export default class TagPopover extends Component {
             <Text style={styles.addText}>加入购物车</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </Animated.View>
     );
   }
 }
@@ -148,7 +164,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    bottom: -20,
+    // bottom: -20, // -600 -> -20
     zIndex: 99,
     padding: 0
   },

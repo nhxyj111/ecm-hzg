@@ -4,7 +4,8 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Animated
 } from "react-native";
 
 import colors from "../styles/colors";
@@ -25,13 +26,29 @@ export default class ShopGood extends Component {
 
   state = {
     selectedTab: 1,
-    showTagPopover: false
+    showTagPopover: false,
+    scale: new Animated.Value(1)
   };
 
   _toggleTagPopover = () => {
-    this.setState(prevState => ({
-      showTagPopover: !prevState.showTagPopover
-    }));
+    this.setState(
+      prevState => ({
+        showTagPopover: !prevState.showTagPopover
+      }),
+      () => {
+        if (this.state.showTagPopover) {
+          Animated.timing(this.state.scale, {
+            toValue: 0.9,
+            duration: 500
+          }).start();
+        } else {
+          Animated.timing(this.state.scale, {
+            toValue: 1,
+            duration: 500
+          }).start();
+        }
+      }
+    );
   };
 
   _onSelect = selectedTab => {
@@ -50,14 +67,10 @@ export default class ShopGood extends Component {
   };
 
   render() {
-    const { selectedTab, showTagPopover } = this.state;
+    const { selectedTab, showTagPopover, scale } = this.state;
+
     return (
-      <View
-        style={[
-          styles.wrapper,
-          showTagPopover && { transform: [{ scale: 0.9 }] }
-        ]}
-      >
+      <Animated.View style={[styles.wrapper, { transform: [{ scale }] }]}>
         <View style={styles.nav}>
           <TouchableOpacity>
             <Feather name="arrow-left" color={colors.lightBlack} size={28} />
@@ -86,10 +99,13 @@ export default class ShopGood extends Component {
         <FooterBar />
 
         {showTagPopover && <Veil />}
-        {showTagPopover && (
-          <TagPopover scale={1.111} toggleTagPopover={this._toggleTagPopover} />
-        )}
-      </View>
+
+        <TagPopover
+          scale={1.111}
+          toggleTagPopover={this._toggleTagPopover}
+          show={showTagPopover}
+        />
+      </Animated.View>
     );
   }
 }
