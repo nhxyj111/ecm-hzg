@@ -9,10 +9,10 @@ export default class GoodDescSpec extends Component {
       <View style={styles.wrapper}>
         <View style={styles.row}>
           <View style={styles.cell1}>
-            <Text>商品编号</Text>
+            <Text style={styles.cellText}>商品编号</Text>
           </View>
           <View style={styles.cell4}>
-            <Text>2898789</Text>
+            <Text style={styles.cellText}>2898789</Text>
           </View>
         </View>
 

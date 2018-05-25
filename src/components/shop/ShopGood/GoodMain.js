@@ -10,7 +10,14 @@ const IMAGE_WIDTH = VW - 2 * 15;
 
 export default class GoodMain extends Component {
   render() {
-    const { toggleTagPopover } = this.props;
+    const { toggleTagPopover, product } = this.props;
+    const {
+      MERCHANDISE_ID,
+      SHOP_ID,
+      MERCHANDISE_NAME,
+      BRIEF,
+      RECOMMENDED
+    } = product;
 
     return (
       <View style={styles.wrapper}>
@@ -22,12 +29,11 @@ export default class GoodMain extends Component {
         </View>
         <View style={styles.desc}>
           <View style={styles.left}>
-            <Text style={styles.info} numberOfLines={3}>
-              <View style={styles.tagWrapper}>
+            {/* not work for android (android: Text can not contain View) <View style={styles.tagWrapper}>
                 <Text style={styles.tag}>推荐</Text>
-              </View>{" "}
-              HHKB Professional BT 白色有刻版蓝牙静电容键盘 MAC
-              WIN双模式程序员码农Java
+              </View>{" "} */}
+            <Text style={styles.info} numberOfLines={3}>
+              {MERCHANDISE_NAME} / {BRIEF}
             </Text>
           </View>
           <TouchableOpacity style={styles.right}>

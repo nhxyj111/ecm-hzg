@@ -4,29 +4,6 @@ import EntypoIcon from "react-native-vector-icons/Entypo";
 
 import colors from "../../styles/colors";
 
-const TABBAR_CONFIG = [
-  {
-    key: 1,
-    number: 9,
-    title: "全部商品"
-  },
-  {
-    key: 2,
-    number: 9,
-    title: "热销"
-  },
-  {
-    key: 3,
-    number: 9,
-    title: "上新"
-  },
-  {
-    key: 4,
-    number: 9,
-    title: "店铺动态"
-  }
-];
-
 export default class Tabbar extends Component {
   state = {
     key: 0
@@ -40,6 +17,30 @@ export default class Tabbar extends Component {
 
   render() {
     const { key } = this.state;
+    const { totalCount } = this.props;
+
+    const TABBAR_CONFIG = [
+      {
+        key: 1,
+        number: totalCount,
+        title: "全部商品"
+      },
+      {
+        key: 2,
+        number: 9,
+        title: "热销"
+      },
+      {
+        key: 3,
+        number: 9,
+        title: "上新"
+      },
+      {
+        key: 4,
+        number: 9,
+        title: "店铺动态"
+      }
+    ];
 
     return (
       <View style={styles.wrapper}>

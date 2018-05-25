@@ -13,8 +13,13 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import colors from "../../styles/colors";
 
 export default class Header extends Component {
+  state = {
+    value: ""
+  };
+
   render() {
-    const { goBack } = this.props;
+    const { goBack, shop, onFilter } = this.props;
+    const { SHOP_NAME } = shop;
     return (
       <ImageBackground
         style={styles.wrapper}
@@ -31,8 +36,10 @@ export default class Header extends Component {
             style={styles.inputText}
             keyboardType="web-search"
             placeholder="搜本店铺"
-            onSubmitEditing={() => {}}
+            onSubmitEditing={() => onFilter(this.state.value)}
             underlineColorAndroid="transparent"
+            value={this.state.value}
+            onChangeText={value => this.setState({ value })}
           />
 
           <TouchableOpacity>
@@ -48,7 +55,7 @@ export default class Header extends Component {
             />
             <View style={styles.nameWrapper}>
               <View style={styles.name}>
-                <Text style={styles.nameText}>XXXX会展购旗舰店</Text>
+                <Text style={styles.nameText}>{SHOP_NAME}</Text>
               </View>
               <View style={styles.recommend}>
                 <Text style={styles.recommendText}>推荐商户</Text>

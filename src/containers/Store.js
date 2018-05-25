@@ -39,7 +39,7 @@ export default class Store extends Component {
       currentPage: page,
       pageSize: PAGE_SIZE
     };
-    if (typeof key === "string" && key.trim() !== "" && key !== undefined) {
+    if (typeof key === "string" && key.trim() !== "") {
       params.key = key;
     }
     const response = await axiosInstance.get("getGoodsByKeyword", { params });

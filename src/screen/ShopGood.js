@@ -56,17 +56,26 @@ export default class ShopGood extends Component {
   };
 
   _gotoShop = id => {
-    this.props.navigation.navigate("Shop");
+    const { navigation } = this.props;
+    const {
+      product: { SHOP_ID }
+    } = navigation.state.params;
+    this.props.navigation.navigate("Shop", { shopId: SHOP_ID });
   };
 
   _renderTabContent = () => {
     const { selectedTab } = this.state;
+    const { navigation } = this.props;
+    const { product } = navigation.state.params;
+
     if (selectedTab === 1) {
-      return <GoodMain toggleTagPopover={this._toggleTagPopover} />;
+      return (
+        <GoodMain toggleTagPopover={this._toggleTagPopover} product={product} />
+      );
     } else if (selectedTab === 2) {
-      return <GoodDesc />;
+      return <GoodDesc product={product} />;
     } else {
-      return <GoodComments />;
+      return <GoodComments product={product} />;
     }
   };
 

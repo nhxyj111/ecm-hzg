@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import { VW } from "../../constants";
 import colors from "../../styles/colors";
-// TODO: test data
-import recommendData from "../../data/recommend";
+// import recommendData from "../../data/recommend";
 
 const RECOMMEND_IMAGE_WIDTH = (VW - 2 * 15 - 15) / 2;
 const RECOMMEND_IMAGE_HEIGHT = RECOMMEND_IMAGE_WIDTH * 2 / 3;
@@ -16,15 +15,18 @@ const RecommendItem = ({ item, index }) => (
       { flexDirection: index % 2 === 0 ? "row" : "row-reverse" }
     ]}
   >
-    <Image source={{ uri: item.photo }} style={styles.recommendImage} />
+    <Image
+      source={{ uri: "https://dummyimage.com/300x200/04ccaa/fff" }}
+      style={styles.recommendImage}
+    />
     <View style={styles.sloganWrapper}>
       <View style={styles.slogan}>
         <Text numberOfLines={2} style={styles.sloganText}>
-          {item.slogan}
+          {item.MERCHANDISE_NAME}
         </Text>
       </View>
       <Text numberOfLines={5} style={styles.desc}>
-        {item.desc}
+        {item.BRIEF}
       </Text>
       <TouchableOpacity style={styles.buyWrapper}>
         <Text style={styles.buy}>立即选购</Text>
@@ -35,6 +37,7 @@ const RecommendItem = ({ item, index }) => (
 
 export default class Recommend extends Component {
   render() {
+    const { recommends } = this.props;
     return (
       <View style={styles.wrapper}>
         <Image
@@ -43,8 +46,8 @@ export default class Recommend extends Component {
         />
 
         <View style={styles.recommend}>
-          {recommendData.map((item, index) => (
-            <RecommendItem item={item} index={index} key={item.id} />
+          {recommends.map((item, index) => (
+            <RecommendItem item={item} index={index} key={item._id} />
           ))}
         </View>
       </View>

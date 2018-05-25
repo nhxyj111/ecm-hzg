@@ -9,6 +9,8 @@ import Recommend from "../components/shop/Recommend";
 import List from "../components/shop/List";
 import Popover from "../components/shop/Popover";
 import { VW } from "../constants";
+import { axiosInstance } from "../services";
+import { STATIC_BASE } from "../services";
 
 export default class Shop extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -17,7 +19,10 @@ export default class Shop extends Component {
 
   state = {
     tabKey: 0,
-    showPop: false
+    showPop: false,
+    shop: {},
+    recommends: [],
+    totalCount: 0
   };
 
   _onTab = tabKey => {
@@ -38,20 +43,57 @@ export default class Shop extends Component {
     }));
   };
 
+  componentDidMount = async () => {
+    const { navigation } = this.props;
+    const { shopId } = navigation.state.params;
+    const response = await axiosInstance.get(`getShopByShopid/${shopId}`);
+    this.setState({ shop: response.data });
+    this.loadRecommend();
+  };
+
+  loadRecommend = async () => {
+    const { navigation } = this.props;
+    const { shopId } = navigation.state.params;
+    const response = await axiosInstance.get(`getGoodsByShop/${shopId}`, {
+      params: {
+        currentPage: 1,
+        pageSize: 4
+      }
+    });
+    const recommends = response.data.data;
+    const totalCount = response.data.totalCount;
+    this.setState({ recommends, totalCount });
+  };
+
+  _onFilter = searchKey => {
+    if (typeof searchKey === "string" && searchKey.trim() === "") {
+      alert("请输入关键字");
+    } else {
+      const { navigation } = this.props;
+      const { shopId } = navigation.state.params;
+      navigation.navigate("ShopSearch", { shopId, searchKey });
+    }
+  };
+
   render() {
     const { tabKey, showPop } = this.state;
-
+    const { shop, recommends, totalCount } = this.state;
     return (
       <View style={styles.wrapper}>
         <View style={styles.header}>
-          <Header goBack={this._goBack} />
-          <Tabbar onTab={this._onTab} />
+          <Header goBack={this._goBack} shop={shop} onFilter={this._onFilter} />
+          <Tabbar onTab={this._onTab} totalCount={totalCount} />
         </View>
         <ScrollView
           style={styles.scrollview}
           contentContainerStyle={{ paddingBottom: 80, zIndex: -1 }}
+          showsVerticalScrollIndicator={false}
         >
-          {tabKey === 0 ? <Recommend /> : <List />}
+          {tabKey === 0 ? (
+            <Recommend recommends={recommends} />
+          ) : (
+            <List shopId={shop.SHOP_ID} searchKey="" />
+          )}
         </ScrollView>
         <View style={styles.footer}>
           <Footer

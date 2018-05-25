@@ -8,17 +8,22 @@ const DESC_WRAPPER_WIDTH = VW / 2;
 
 export default class ListItem extends Component {
   render() {
-    const { id, isHot, desc, photo, price, comment } = this.props.data;
+    const { _id, MERCHANDISE_NAME, BRIEF } = this.props.data;
     return (
       <TouchableOpacity style={styles.wrapper}>
-        <Image source={{ uri: photo }} style={styles.image} />
+        <Image
+          source={{ uri: "https://dummyimage.com/300x200/04ccaa/fff" }}
+          style={styles.image}
+        />
         <View style={styles.right}>
           <View>
-            <Text numberOfLines={2}>{desc}</Text>
+            <Text numberOfLines={2}>
+              {MERCHANDISE_NAME} / {BRIEF}
+            </Text>
           </View>
           <View>
-            <Text style={styles.price}>￥{price}</Text>
-            <Text style={styles.comment}>{comment}条评论</Text>
+            <Text style={styles.price}>￥889</Text>
+            <Text style={styles.comment}>1222条评论</Text>
           </View>
         </View>
       </TouchableOpacity>
