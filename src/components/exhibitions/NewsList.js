@@ -10,7 +10,7 @@ export default class NewsList extends Component {
         <FlatList
           data={this.props.data}
           renderItem={({ item, index }) => <NewsItem data={item} />}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item._id}
           style={styles.flatlist}
         />
       </View>

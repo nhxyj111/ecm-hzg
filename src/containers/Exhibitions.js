@@ -10,16 +10,14 @@ import {
 import FeatherIcon from "react-native-vector-icons/Feather";
 
 import NewsList from "../components/exhibitions/NewsList";
-// TODO: test data
-import newsData from "../data/news";
+// import newsData from "../data/news";
 // import exhibitionsList from "../data/exhibitions";
 // import PickerTest from "../components/PickerTest";
 
 import SearchBar from "../components/SearchBar";
-// import CitySelector from "../components/CitySelector";
 import HotExhibitionList from "../components/exhibitions/HotExhibitionList";
-
-// import DatePickerPrompt from "../components/DatePickerPrompt.android";
+import { axiosInstance } from "../services";
+import colors from "../styles/colors";
 
 const DatePickerPrompt = Platform.select({
   ios: () => require("../components/DatePickerPrompt").default,
@@ -31,9 +29,6 @@ const CitySelector = Platform.select({
   android: () => require("../components/CitySelectorAndroid").default
 })();
 
-import colors from "../styles/colors";
-import { axiosInstance } from "../services";
-
 export default class Exhibitions extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: null
@@ -43,7 +38,8 @@ export default class Exhibitions extends Component {
     showCitySelector: false,
     showDatePicker: false,
     expoList: [],
-    key: ""
+    key: "",
+    news: []
   };
 
   _toggleCitySelector = () => {
@@ -59,7 +55,16 @@ export default class Exhibitions extends Component {
   componentDidMount = async () => {
     const expoList = await axiosInstance.get("searchExpo");
     // console.log(JSON.stringify(expoList.data));
-    this.setState({ expoList: expoList.data.data });
+    // this.setState({ expoList: expoList.data.data });
+
+    const newsResponse = await axiosInstance.get("searchExpoMsg", {
+      params: {
+        pageSize: 5,
+        currentPage: 1
+      }
+    });
+    const news = newsResponse.data.data;
+    this.setState({ news, expoList: expoList.data.data });
   };
   _searchByCity = selectedCity => {
     this.setState(
@@ -101,7 +106,13 @@ export default class Exhibitions extends Component {
   };
 
   render() {
-    const { showCitySelector, showDatePicker, expoList, key } = this.state;
+    const {
+      showCitySelector,
+      showDatePicker,
+      expoList,
+      key,
+      news
+    } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.wrapper}>
@@ -150,7 +161,7 @@ export default class Exhibitions extends Component {
             </TouchableOpacity>
           </View>
 
-          <NewsList data={newsData.slice(0, 5)} />
+          <NewsList data={news} />
         </ScrollView>
 
         <CitySelector

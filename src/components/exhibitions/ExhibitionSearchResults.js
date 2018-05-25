@@ -15,6 +15,8 @@ import { axiosInstance } from "../../services";
 import { VW } from "../../constants";
 import { STATIC_BASE } from "../../services";
 import MoreButton from "../MoreButton";
+import NoResult from "../NoResult";
+import Loader from "../Loader";
 
 const IMAGE_WIDTH = (VW - 2 * 20 - 2 * 8) / 3;
 const defaultPhoto = "https://dummyimage.com/100x100/FF6347/fff";
@@ -34,7 +36,9 @@ export default class ExhibitionSearchResults extends Component {
   state = {
     results: [],
     page: 1,
-    hasMore: true
+    hasMore: true,
+    loading: false,
+    totalCount: 0
   };
 
   _loadMore = () => {
@@ -53,6 +57,7 @@ export default class ExhibitionSearchResults extends Component {
   };
 
   loadResults = async (page, pageSize) => {
+    this.setState({ loading: true });
     let searchUrl = "searchExpo";
     let queryString = "";
     let queryArr = [];
@@ -70,12 +75,14 @@ export default class ExhibitionSearchResults extends Component {
     // console.log(results);
     this.setState(prevState => ({
       results: [...prevState.results, ...results],
-      hasMore: totalCount <= PAGE_SIZE * page ? false : true
+      hasMore: totalCount <= PAGE_SIZE * page ? false : true,
+      loading: false,
+      totalCount
     }));
   };
 
   render() {
-    const { results, hasMore } = this.state;
+    const { results, hasMore, loading, totalCount, page } = this.state;
     return (
       <View style={styles.wrapper}>
         <ScrollView
@@ -87,26 +94,32 @@ export default class ExhibitionSearchResults extends Component {
             justifyContent: "space-between"
           }}
         >
-          {results.map(item => {
-            const uri =
-              item.LOGOURL !== "" ? STATIC_BASE + item.LOGOURL : defaultPhoto;
-            return (
-              <TouchableOpacity
-                key={item._id}
-                style={styles.item}
-                onPress={() =>
-                  this.props.navigation.navigate("ExhibitionDetail", {
-                    expo: item
-                  })
-                }
-              >
-                <Image source={{ uri }} style={styles.image} />
-                <Text numberOfLines={2} style={styles.name}>
-                  {item.NAME}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+          {loading && page === 1 ? (
+            <Loader />
+          ) : totalCount === 0 ? (
+            <NoResult />
+          ) : (
+            results.map(item => {
+              const uri =
+                item.LOGOURL !== "" ? STATIC_BASE + item.LOGOURL : defaultPhoto;
+              return (
+                <TouchableOpacity
+                  key={item._id}
+                  style={styles.item}
+                  onPress={() =>
+                    this.props.navigation.navigate("ExhibitionDetail", {
+                      expo: item
+                    })
+                  }
+                >
+                  <Image source={{ uri }} style={styles.image} />
+                  <Text numberOfLines={2} style={styles.name}>
+                    {item.NAME}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })
+          )}
 
           {hasMore && (
             <View

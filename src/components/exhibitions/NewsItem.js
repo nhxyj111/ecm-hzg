@@ -5,15 +5,15 @@ import colors from "../../styles/colors";
 
 export default class NewsItem extends Component {
   render() {
-    const { title, content } = this.props.data;
+    const { ARTICLE_TITLE, ARTICLE_SUMMARY } = this.props.data;
     return (
       <View style={styles.wrapper}>
         <TouchableOpacity>
           <Text style={styles.title} numberOfLines={1}>
-            {title}
+            {ARTICLE_TITLE}
           </Text>
           <Text style={styles.content} numberOfLines={2}>
-            {content}
+            {ARTICLE_SUMMARY}
           </Text>
         </TouchableOpacity>
       </View>

@@ -8,10 +8,14 @@ import { VW } from "../../constants";
 import NewsList from "./NewsList";
 import SearchBar2 from "../SearchBar2";
 import SearchPrompt from "../SearchPrompt";
-// TODO: test data
-import newsData from "../../data/news";
+import MoreButton from "../MoreButton";
+import Loader from "../Loader";
+import NoResult from "../NoResult";
+import { axiosInstance } from "../../services";
+// import newsData from "../../data/news";
 
 const PROMPT_WIDTH = VW - 2 * 20;
+const PAGE_SIZE = 30;
 
 const prompt_config = [
   {
@@ -97,11 +101,13 @@ export default class NewsMore extends Component {
   });
 
   state = {
-    showPrompt: false
-  };
-
-  _onSearch = () => {
-    alert("on search");
+    showPrompt: false,
+    loading: false,
+    totalCount: 0,
+    page: 1,
+    news: [],
+    searchKey: "",
+    hasMore: false
   };
 
   _onFocus = () => {
@@ -113,12 +119,55 @@ export default class NewsMore extends Component {
     this.setState({ showPrompt: false });
   };
 
+  loadResults = async (page, key) => {
+    this.setState({ loading: true });
+    let params = {
+      currentPage: page,
+      pageSize: PAGE_SIZE
+    };
+    if (typeof key === "string" && key.trim() !== "" && key !== undefined) {
+      params.key = key;
+    }
+    const response = await axiosInstance.get("searchExpoMsg", { params });
+    const results = response.data.data;
+    const totalCount = response.data.totalCount;
+    this.setState(prevState => ({
+      news: [...prevState.news, ...results],
+      hasMore: totalCount <= PAGE_SIZE * page ? false : true,
+      loading: false,
+      totalCount
+    }));
+  };
+
+  _onFilter = searchKey => {
+    this.setState({ searchKey, news: [], page: 1 }, () => {
+      this.loadResults(this.state.page, searchKey);
+    });
+  };
+
+  _loadMore = () => {
+    this.setState(
+      prevState => ({
+        page: prevState.page + 1
+      }),
+      () => {
+        this.loadResults(this.state.page, this.state.searchKey);
+      }
+    );
+  };
+
+  componentDidMount = () => {
+    this.loadResults(this.state.page, "");
+  };
+
   render() {
+    const { news, loading, hasMore, totalCount, page } = this.state;
+
     return (
       <View style={styles.wrapper}>
         <View style={styles.heading}>
           <SearchBar2
-            onSearch={this._onSearch}
+            onSearch={this._onFilter}
             rightIcon={
               <Icon name="ios-search" size={20} color={colors.gray05} />
             }
@@ -127,9 +176,33 @@ export default class NewsMore extends Component {
             onFocus={this._onFocus}
           />
         </View>
-        <View style={styles.content}>
-          <NewsList data={newsData} />
-        </View>
+
+        {loading && page === 1 ? (
+          <Loader />
+        ) : totalCount === 0 ? (
+          <NoResult />
+        ) : (
+          <View style={styles.content}>
+            <NewsList data={news} />
+          </View>
+        )}
+        {hasMore && (
+          <View
+            style={{
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <MoreButton
+              color={colors.lightBlack}
+              size={14}
+              title="更多..."
+              onPress={this._loadMore}
+              disabled={loading}
+            />
+          </View>
+        )}
 
         {this.state.showPrompt && (
           <View style={styles.prompt}>

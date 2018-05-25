@@ -62,7 +62,7 @@ export default class Store extends Component {
   };
 
   _onFilter = searchKey => {
-    this.setState({ searchKey }, () => {
+    this.setState({ searchKey, products: [], page: 1 }, () => {
       this.loadResults(this.state.page, searchKey);
     });
   };

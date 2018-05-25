@@ -11,6 +11,10 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 
 import colors from "../styles/colors";
 export default class SearchBar2 extends Component {
+  state = {
+    value: ""
+  };
+
   render() {
     const { rightIcon, onSearch, placeholder, bgColor, onFocus } = this.props;
     return (
@@ -21,9 +25,12 @@ export default class SearchBar2 extends Component {
           placeholder={placeholder}
           onFocus={onFocus}
           underlineColorAndroid="transparent"
+          onSubmitEditing={() => onSearch(this.state.value)}
+          onChangeText={value => this.setState({ value })}
+          value={this.state.value}
         />
 
-        <TouchableOpacity onPress={() => onSearch()}>
+        <TouchableOpacity onPress={() => onSearch(this.state.value)}>
           {rightIcon}
         </TouchableOpacity>
       </View>
