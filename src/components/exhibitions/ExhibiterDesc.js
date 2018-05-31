@@ -15,7 +15,8 @@ export default class ExhibiterDesc extends Component {
     const { exhibiter } = this.props;
     const {
       _id,
-      COM_NAME,
+      SHOP_ID,
+      SHOP_NAME,
       PROVINCE_ID,
       CITY_ID,
       ADDRESS,
@@ -23,7 +24,8 @@ export default class ExhibiterDesc extends Component {
       PHONE,
       MOBILE,
       BANNERURL,
-      INTRODUCE
+      INTRODUCE,
+      LOGO_URL
     } = exhibiter;
 
     const photo = BANNERURL
@@ -44,7 +46,7 @@ export default class ExhibiterDesc extends Component {
             paddingHorizontal: 5
           }}
         >
-          <Text style={styles.heading}>{COM_NAME}</Text>
+          <Text style={styles.heading}>{SHOP_NAME}</Text>
           {/* 副标题 */}
           <View style={styles.subHeading}>
             <View style={styles.subTextWrapper}>
@@ -116,7 +118,8 @@ const styles = StyleSheet.create({
   },
   desc: {
     fontSize: 14,
-    color: colors.white
+    color: colors.white,
+    lineHeight: 20
     // height: "auto",
     // lineHeight: 1.5
   }

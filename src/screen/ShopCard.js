@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import moment from "moment";
 
 import colors from "../styles/colors";
 import { VW } from "../constants";
@@ -32,6 +33,20 @@ export default class ShopCard extends Component {
   };
 
   render() {
+    const {
+      shop: {
+        SHOP_NAME,
+        LOGO_URL,
+        INTRODUCE,
+        CREATE_TIME,
+        VIEW_NUM,
+        MSG_MOBILE,
+        MOBILE,
+        PHONE
+      },
+      totalCount
+    } = this.props.navigation.state.params;
+    // console.log(shop);
     return (
       <ScrollView style={styles.wrapper}>
         <View style={styles.header}>
@@ -43,7 +58,7 @@ export default class ShopCard extends Component {
               />
               <View style={styles.nameWrapper}>
                 <View style={styles.name}>
-                  <Text style={styles.nameText}>XXXX会展购旗舰店</Text>
+                  <Text style={styles.nameText}>{SHOP_NAME}</Text>
                 </View>
                 <View style={styles.recommend}>
                   <Text style={styles.recommendText}>推荐商户</Text>
@@ -52,18 +67,20 @@ export default class ShopCard extends Component {
             </View>
             <View style={styles.right}>
               <TouchableOpacity style={styles.watch}>
-                <FeatherIcon name="heart" size={14} color={colors.white} />
-                <Text style={styles.watchText}>关注</Text>
+                {/* <FeatherIcon name="heart" size={14} color={colors.white} />
+                <Text style={styles.watchText}>关注</Text> */}
+                <FeatherIcon name="eye" size={14} color={colors.white} />
+                <Text style={styles.watchText}>浏览</Text>
               </TouchableOpacity>
               <View style={styles.watchNum}>
-                <Text style={styles.watchNumText}>1999</Text>
+                <Text style={styles.watchNumText}>{VIEW_NUM}</Text>
               </View>
             </View>
           </View>
 
           <View style={styles.tabs}>
             <View style={styles.tab}>
-              <Text style={styles.number}>9</Text>
+              <Text style={styles.number}>{totalCount}</Text>
               <Text style={styles.tabName}>全部商品</Text>
             </View>
             <View style={styles.tab}>
@@ -95,11 +112,13 @@ export default class ShopCard extends Component {
         <View style={styles.itemWrapper}>
           <View style={[styles.item, styles.borderBottom]}>
             <Text style={styles.itemText2}>店铺简介</Text>
-            <Text style={styles.itemDesc}>高端外设产品和海外代购</Text>
+            <Text style={styles.itemDesc}>{SHOP_NAME}</Text>
           </View>
           <View style={styles.item}>
             <Text style={styles.itemText2}>开店时间</Text>
-            <Text style={styles.itemDesc}>2018-01-01</Text>
+            <Text style={styles.itemDesc}>
+              {moment(CREATE_TIME).format("YYYY-MM-DD")}
+            </Text>
           </View>
         </View>
 

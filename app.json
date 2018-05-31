@@ -3,6 +3,11 @@
     "sdkVersion": "27.0.0",
     "name": "会展购",
     "icon": "./logo.png",
+    "splash": {
+      "image": "./logo.png",
+      "backgroundColor": "#333333",
+      "resizeMode": "contain"
+    },
     "version": "1.0.0",
     "slug": "ecm-hzg",
     "ios": {

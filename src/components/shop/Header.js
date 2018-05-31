@@ -19,7 +19,7 @@ export default class Header extends Component {
 
   render() {
     const { goBack, shop, onFilter } = this.props;
-    const { SHOP_NAME } = shop;
+    const { SHOP_NAME, VIEW_NUM } = shop;
     return (
       <ImageBackground
         style={styles.wrapper}
@@ -64,11 +64,11 @@ export default class Header extends Component {
           </View>
           <View style={styles.right}>
             <TouchableOpacity style={styles.watch}>
-              <FeatherIcon name="heart" size={14} color={colors.white} />
-              <Text style={styles.watchText}>关注</Text>
+              <FeatherIcon name="eye" size={14} color={colors.white} />
+              <Text style={styles.watchText}>浏览</Text>
             </TouchableOpacity>
             <View style={styles.watchNum}>
-              <Text style={styles.watchNumText}>1999</Text>
+              <Text style={styles.watchNumText}>{VIEW_NUM}</Text>
             </View>
           </View>
         </View>

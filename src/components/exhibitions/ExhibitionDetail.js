@@ -60,9 +60,10 @@ export default class ExhibitionDetail extends Component {
 
   loadExhibiters = async (page, pageSize) => {
     const { expo } = this.state;
+    // console.log(expo.EXHIBITION_ID);
     const response = await axiosInstance.get(
-      `getExhibitorsByExpo/${
-        expo._id
+      `searchShopListByexpoid/${
+        expo.EXHIBITION_ID
       }?&currentPage=${page}&pageSize=${pageSize}`
     );
     const exhibiters = response.data.data;

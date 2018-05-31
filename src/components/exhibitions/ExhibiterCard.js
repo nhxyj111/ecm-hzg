@@ -17,8 +17,8 @@ const defaultPhoto = "https://dummyimage.com/100x100/FF6347/fff";
 export default class ExhibiterCard extends Component {
   render() {
     const { exhibiter } = this.props;
-    const { COM_NAME, LOGOURL } = exhibiter;
-    const photo = LOGOURL ? STATIC_BASE + LOGOURL : defaultPhoto;
+    const { SHOP_NAME, LOGO_URL } = exhibiter;
+    const photo = LOGO_URL ? STATIC_BASE + LOGO_URL : defaultPhoto;
     return (
       <TouchableOpacity style={styles.wrapper} onPress={this.props.onPress}>
         <ImageBackground
@@ -27,7 +27,7 @@ export default class ExhibiterCard extends Component {
           resizeMode="cover"
           borderRadius={3}
         />
-        <Text style={styles.exhibiterName}>{COM_NAME}</Text>
+        <Text style={styles.exhibiterName}>{SHOP_NAME}</Text>
       </TouchableOpacity>
     );
   }

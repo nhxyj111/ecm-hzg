@@ -30,7 +30,10 @@ export default class Shop extends Component {
   };
 
   _gotoShopCard = () => {
-    this.props.navigation.navigate("ShopCard");
+    this.props.navigation.navigate("ShopCard", {
+      shop: this.state.shop,
+      totalCount: this.state.totalCount
+    });
   };
 
   _goBack = () => {

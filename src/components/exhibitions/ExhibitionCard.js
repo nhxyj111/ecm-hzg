@@ -121,7 +121,8 @@ const styles = StyleSheet.create({
   },
   desc: {
     fontSize: 14,
-    color: colors.white
+    color: colors.white,
+    lineHeight: 20
     // height: "auto",
     // lineHeight: 1.5
   }

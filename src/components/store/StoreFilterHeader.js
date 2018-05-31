@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
   inputText: {
     flex: 1,
     fontSize: 16,
-    color: colors.lightBlack
+    color: colors.lightBlack,
+    paddingHorizontal: 15
   },
 
   leftWrapper: {

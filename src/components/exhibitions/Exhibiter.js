@@ -33,7 +33,11 @@ export default class Exhibiter extends Component {
     ),
     headerRight: (
       <TouchableOpacity
-        onPress={() => navigation.navigate("Shop")}
+        onPress={() => {
+          const { exhibiter } = navigation.state.params;
+          // console.log(exhibiter);
+          navigation.navigate("Shop", { shopId: exhibiter.SHOP_ID });
+        }}
         style={styles.shopButton}
       >
         <Text style={styles.shopButtonText}>店铺</Text>
@@ -55,21 +59,22 @@ export default class Exhibiter extends Component {
   };
 
   componentDidMount = async () => {
-    const { exhibiter } = this.props.navigation.state.params;
-    const response = await axiosInstance.get(
-      `getProductsByExhitor/${exhibiter._id}`
-    );
-    const products = response.data;
-    this.setState({ products });
+    // const { exhibiter } = this.props.navigation.state.params;
+    // const response = await axiosInstance.get(
+    //   `getProductsByExhitor/${exhibiter._id}`
+    // );
+    // const response =await axiosInstance.get(`getShopGoods/${exhibiter.SHOP_ID}`)
+    // const products = response.data;
+    // this.setState({ products });
   };
 
-  _moreProducts = () => {
-    const { navigation } = this.props;
-    const {
-      exhibiter: { _id }
-    } = navigation.state.params;
-    navigation.navigate("ProductSearch", { exhibiterId: _id });
-  };
+  // _moreProducts = () => {
+  //   const { navigation } = this.props;
+  //   const {
+  //     exhibiter: { SHOP_ID }
+  //   } = navigation.state.params;
+  //   navigation.navigate("ProductSearch", { exhibiterId: SHOP_ID });
+  // };
 
   render() {
     const { navigation } = this.props;
@@ -94,7 +99,7 @@ export default class Exhibiter extends Component {
             onFocus={this._onFocus}
           /> */}
 
-          <View style={styles.headingWrapper}>
+          {/* <View style={styles.headingWrapper}>
             <Text style={styles.heading}>正在参展热门商品</Text>
             <TouchableOpacity
               style={styles.moreWrapper}
@@ -107,7 +112,7 @@ export default class Exhibiter extends Component {
 
           <View style={styles.items}>
             <ProductList products={products} onPress={this._onPress} />
-          </View>
+          </View> */}
 
           <Timeline data={timelineData} />
         </ScrollView>
