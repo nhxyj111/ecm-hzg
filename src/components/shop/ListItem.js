@@ -8,9 +8,13 @@ const DESC_WRAPPER_WIDTH = VW / 2;
 
 export default class ListItem extends Component {
   render() {
-    const { _id, MERCHANDISE_NAME, BRIEF } = this.props.data;
+    const { gotoShopGood, data } = this.props;
+    const { _id, MERCHANDISE_NAME, BRIEF } = data;
     return (
-      <TouchableOpacity style={styles.wrapper}>
+      <TouchableOpacity
+        style={styles.wrapper}
+        onPress={() => gotoShopGood(data)}
+      >
         <Image
           source={{ uri: "https://dummyimage.com/300x200/04ccaa/fff" }}
           style={styles.image}

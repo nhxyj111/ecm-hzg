@@ -15,10 +15,9 @@ import Timeline from "../../components/Timeline";
 import colors from "../../styles/colors";
 import { transparentHeaderStyle } from "../../styles/navigation";
 import { axiosInstance } from "../../services";
-// TODO: test for now
-import timelineData from "../../data/timelines";
-import ProductList from "../../components/exhibitions/ProductList";
-import exhibitionsList from "../../data/exhibitions";
+// import timelineData from "../../data/timelines";
+// import ProductList from "../../components/exhibitions/ProductList";
+// import exhibitionsList from "../../data/exhibitions";
 export default class Exhibiter extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerStyle: [transparentHeaderStyle, { paddingLeft: 20 }],
@@ -47,7 +46,7 @@ export default class Exhibiter extends Component {
   });
 
   state = {
-    products: []
+    timelineData: []
   };
 
   // _onFocus = () => {};
@@ -66,6 +65,13 @@ export default class Exhibiter extends Component {
     // const response =await axiosInstance.get(`getShopGoods/${exhibiter.SHOP_ID}`)
     // const products = response.data;
     // this.setState({ products });
+    const { navigation } = this.props;
+    const { exhibiter } = navigation.state.params;
+    const response = await axiosInstance.get(
+      `shop/getShopIntro/${exhibiter.SHOP_ID}`
+    );
+    const timelineData = response.data.expo;
+    this.setState({ timelineData });
   };
 
   // _moreProducts = () => {
@@ -80,7 +86,7 @@ export default class Exhibiter extends Component {
     const { navigation } = this.props;
     const { exhibiter } = navigation.state.params;
     // const {_id,COM_NAME,PROVINCE_ID,CITY_ID, ADDRESS,CONTACT,PHONE,MOBILE}
-    const { products } = this.state;
+    const { timelineData } = this.state;
     return (
       <View style={styles.wrapper}>
         <ScrollView

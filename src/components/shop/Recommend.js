@@ -8,7 +8,7 @@ import colors from "../../styles/colors";
 const RECOMMEND_IMAGE_WIDTH = (VW - 2 * 15 - 15) / 2;
 const RECOMMEND_IMAGE_HEIGHT = RECOMMEND_IMAGE_WIDTH * 2 / 3;
 
-const RecommendItem = ({ item, index }) => (
+const RecommendItem = ({ item, index, gotoShopGood }) => (
   <View
     style={[
       styles.recommendWrapper,
@@ -28,7 +28,10 @@ const RecommendItem = ({ item, index }) => (
       <Text numberOfLines={5} style={styles.desc}>
         {item.BRIEF}
       </Text>
-      <TouchableOpacity style={styles.buyWrapper}>
+      <TouchableOpacity
+        style={styles.buyWrapper}
+        onPress={() => gotoShopGood(item)}
+      >
         <Text style={styles.buy}>立即选购</Text>
       </TouchableOpacity>
     </View>
@@ -37,7 +40,7 @@ const RecommendItem = ({ item, index }) => (
 
 export default class Recommend extends Component {
   render() {
-    const { recommends } = this.props;
+    const { recommends, gotoShopGood } = this.props;
     return (
       <View style={styles.wrapper}>
         <Image
@@ -47,7 +50,12 @@ export default class Recommend extends Component {
 
         <View style={styles.recommend}>
           {recommends.map((item, index) => (
-            <RecommendItem item={item} index={index} key={item._id} />
+            <RecommendItem
+              item={item}
+              index={index}
+              key={item._id}
+              gotoShopGood={gotoShopGood}
+            />
           ))}
         </View>
       </View>

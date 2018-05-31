@@ -68,7 +68,9 @@ export default class List extends Component {
         <SortTool />
         <FlatList
           data={products}
-          renderItem={({ item, index }) => <ListItem data={item} />}
+          renderItem={({ item, index }) => (
+            <ListItem data={item} gotoShopGood={this.props.gotoShopGood} />
+          )}
           keyExtractor={item => item._id}
           style={styles.flatlist}
         />

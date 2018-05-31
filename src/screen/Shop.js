@@ -36,6 +36,10 @@ export default class Shop extends Component {
     });
   };
 
+  _gotoShopGood = product => {
+    this.props.navigation.navigate("ShopGood", { product });
+  };
+
   _goBack = () => {
     this.props.navigation.goBack();
   };
@@ -93,9 +97,16 @@ export default class Shop extends Component {
           showsVerticalScrollIndicator={false}
         >
           {tabKey === 0 ? (
-            <Recommend recommends={recommends} />
+            <Recommend
+              recommends={recommends}
+              gotoShopGood={this._gotoShopGood}
+            />
           ) : (
-            <List shopId={shop.SHOP_ID} searchKey="" />
+            <List
+              shopId={shop.SHOP_ID}
+              searchKey=""
+              gotoShopGood={this._gotoShopGood}
+            />
           )}
         </ScrollView>
         <View style={styles.footer}>

@@ -1,34 +1,43 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import moment from "moment";
 
 import colors from "../styles/colors";
 
 export default class Timeline extends Component {
   render() {
     const { data } = this.props;
+    // console.log(data);
     return (
       <View style={styles.wrapper}>
         <View style={styles.timeline}>
-          {data.map((item, index) => (
-            <View style={styles.point} key={item.id}>
-              <View style={styles.left}>
-                <View
-                  style={[
-                    styles.circle,
-                    {
-                      borderColor:
-                        item.status === 1 ? colors.tlGreen : colors.tlBlue
-                    }
-                  ]}
-                />
+          {data.map((item, index) => {
+            const now = moment();
+            const flag =
+              now >= moment(item.START_TIME) && now <= moment(item.END_TIME);
+            return (
+              <View style={styles.point} key={item.EXHIBITION_ID}>
+                <View style={styles.left}>
+                  <View
+                    style={[
+                      styles.circle,
+                      {
+                        borderColor: flag ? colors.tlGreen : colors.tlBlue
+                      }
+                    ]}
+                  />
+                </View>
+                <View style={styles.right}>
+                  <Text style={styles.date}>
+                    参展时间: {moment(item.START_TIME).format("YYYY-MM-DD")} -{" "}
+                    {moment(item.END_TIME).format("YYYY-MM-DD")}
+                  </Text>
+                  <Text style={styles.exhibition}>{item.SHORT_NAME}</Text>
+                  <Text style={styles.host}>{item.NAME}</Text>
+                </View>
               </View>
-              <View style={styles.right}>
-                <Text style={styles.date}>参展时间: {item.date}</Text>
-                <Text style={styles.exhibition}>{item.exhibition}</Text>
-                <Text style={styles.host}>主办方: {item.host}</Text>
-              </View>
-            </View>
-          ))}
+            );
+          })}
         </View>
       </View>
     );
