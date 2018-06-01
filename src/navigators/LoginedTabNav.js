@@ -40,6 +40,7 @@ import Shop from "../screen/Shop";
 import ShopCard from "../screen/ShopCard";
 import ShopSearch from "../screen/ShopSearch";
 import ShopGood from "../screen/ShopGood";
+import ShopCommentDetail from "../screen/ShopCommentDetail";
 
 const ExhibitionsTab = createStackNavigator(
   {
@@ -70,7 +71,8 @@ const StoreTab = createStackNavigator(
     Shop: { screen: Shop },
     ShopSearch: { screen: ShopSearch },
     ShopCard: { screen: ShopCard },
-    ShopGood: { screen: ShopGood }
+    ShopGood: { screen: ShopGood },
+    ShopCommentDetail: { screen: ShopCommentDetail }
   },
   {
     mode: "modal"

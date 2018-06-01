@@ -11,6 +11,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import IconBadge from "react-native-icon-badge";
 
+import InputTag from "../InputTag";
 import colors from "../../styles/colors";
 
 export default class StoreFilterHeader extends Component {
@@ -59,6 +60,10 @@ export default class StoreFilterHeader extends Component {
             onFilter(this.state.value);
           }}
         />
+
+        <View style={{ marginRight: 10 }}>
+          <InputTag title="Test" />
+        </View>
 
         <View style={styles.rightWrapper}>
           <TouchableOpacity>

@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { ScrollView, View, Text, StyleSheet, Image } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity
+} from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import StarRating from "react-native-star-rating";
 
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const Comment = ({ comment }) => (
+const Comment = ({ comment, navigation }) => (
   <View style={styles.comment}>
     <Image source={{ uri: comment.avatar }} style={styles.avatar} />
     <View style={styles.right}>
@@ -151,18 +158,23 @@ const Comment = ({ comment }) => (
           <Text style={styles.buyDateText}>购买日期: {comment.buyDate}</Text>
         </View>
         <View style={styles.footerRight}>
-          <View style={styles.thumbsUpWrapper}>
+          <TouchableOpacity style={styles.thumbsUpWrapper}>
             <FeatherIcon name="thumbs-up" size={16} color={colors.gray02} />
             <Text style={styles.iconText}>{comment.likes}</Text>
-          </View>
-          <View style={styles.messageWrapper}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.messageWrapper}
+            onPress={() =>
+              navigation.navigate("ShopCommentDetail", { comment })
+            }
+          >
             <FeatherIcon
               name="message-square"
               size={16}
               color={colors.gray02}
             />
             <Text style={styles.iconText}>{comment.comments.length}</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -228,12 +240,17 @@ let COMMENT_FILTER_CONFIG = [
 
 export default class GoodComments extends Component {
   render() {
+    const { navigation } = this.props;
     return (
       <ScrollView style={styles.wrapper} contentContainerStyle={{}}>
         <CommentFilter config={COMMENT_FILTER_CONFIG} selectedKey={"all"} />
         <View style={styles.comments}>
           {shopGoodComments.map(comment => (
-            <Comment comment={comment} key={comment.id} />
+            <Comment
+              comment={comment}
+              key={comment.id}
+              navigation={navigation}
+            />
           ))}
         </View>
       </ScrollView>

@@ -23,7 +23,88 @@ const comments = [
     buyDate: "2018-05-11",
     pictures: [],
     likes: 0,
-    comments: []
+    comments: [
+      {
+        id: "cmd-001-001",
+        username: "测中文",
+        date: "2018-05-12 12:12:12",
+        avatar: "https://dummyimage.com/50x50/04ccaa/fff",
+        comment:
+          "X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX"
+      },
+      {
+        id: "cmd-001-002",
+        username: "测中文",
+        date: "2018-05-12 12:12:12",
+        avatar: "https://dummyimage.com/50x50/04ccaa/fff",
+        comment:
+          "X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX"
+      },
+      {
+        id: "cmd-001-003",
+        username: "测中文",
+        date: "2018-05-12 12:12:12",
+        avatar: "https://dummyimage.com/50x50/04ccaa/fff",
+        comment:
+          "X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX"
+      },
+      {
+        id: "cmd-001-004",
+        username: "测中文",
+        date: "2018-05-12 12:12:12",
+        avatar: "https://dummyimage.com/50x50/04ccaa/fff",
+        comment:
+          "X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX"
+      },
+      {
+        id: "cmd-001-005",
+        username: "测中文",
+        date: "2018-05-12 12:12:12",
+        avatar: "https://dummyimage.com/50x50/04ccaa/fff",
+        comment:
+          "X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX"
+      },
+      {
+        id: "cmd-001-006",
+        username: "测中文",
+        date: "2018-05-12 12:12:12",
+        avatar: "https://dummyimage.com/50x50/04ccaa/fff",
+        comment:
+          "X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX"
+      },
+      {
+        id: "cmd-001-007",
+        username: "测中文",
+        date: "2018-05-12 12:12:12",
+        avatar: "https://dummyimage.com/50x50/04ccaa/fff",
+        comment:
+          "X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX"
+      },
+      {
+        id: "cmd-001-008",
+        username: "测中文",
+        date: "2018-05-12 12:12:12",
+        avatar: "https://dummyimage.com/50x50/04ccaa/fff",
+        comment:
+          "X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX"
+      },
+      {
+        id: "cmd-001-009",
+        username: "测中文",
+        date: "2018-05-12 12:12:12",
+        avatar: "https://dummyimage.com/50x50/04ccaa/fff",
+        comment:
+          "X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX"
+      },
+      {
+        id: "cmd-001-010",
+        username: "测中文",
+        date: "2018-05-12 12:12:12",
+        avatar: "https://dummyimage.com/50x50/04ccaa/fff",
+        comment:
+          "X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX X XX XXX XX XX XX"
+      }
+    ]
   },
   {
     id: "sgm-001-003",

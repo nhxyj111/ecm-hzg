@@ -75,7 +75,7 @@ export default class ShopGood extends Component {
     } else if (selectedTab === 2) {
       return <GoodDesc product={product} />;
     } else {
-      return <GoodComments product={product} />;
+      return <GoodComments product={product} navigation={navigation} />;
     }
   };
 
