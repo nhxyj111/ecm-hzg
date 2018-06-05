@@ -5,15 +5,16 @@ import {
   StyleSheet,
   TouchableHighlight,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from "react-native";
 import Accordion from "react-native-collapsible/Accordion";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import colors from "../../styles/colors";
 import { transparentHeaderStyle } from "../../styles/navigation";
-// TODO:
-import categories from "../../data/storefiltercategories";
+// import categories from "../../data/storefiltercategories";
+import { axiosInstance } from "../../services";
 
 export default class StoreFilterModal extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -30,9 +31,36 @@ export default class StoreFilterModal extends Component {
     categories: []
   };
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    // const response = await axiosInstance.get("getMerchandiseTypeList");
+    // const merchandiseTypeList = response.data.merchandiseTypeList;
+    // const subTypeList = merchandiseTypeList.filter(
+    //   item => item.PARENT_NAME !== ""
+    // );
+    // const parentTypeList = merchandiseTypeList.filter(
+    //   item => item.PARENT_NAME === ""
+    // );
+    // let parentTypeDict = {};
+    // const categories = [];
+
+    // for (let item of parentTypeList) {
+    //   parentTypeDict[item.MERCHANDISE_TYPE_NAME] = [];
+    // }
+
+    // for (let item of subTypeList) {
+    //   parentTypeDict[item.PARENT_NAME].push(item);
+    // }
+
+    // for (let key in parentTypeDict) {
+    //   categories.push({
+    //     section: key,
+    //     list: parentTypeDict[key]
+    //   });
+    // }
+    const categories = JSON.parse(await AsyncStorage.getItem("@categories"));
+
     this.setState({ categories });
-  }
+  };
 
   get Sections() {
     return this.state.categories.map(c => c.section);
@@ -69,11 +97,11 @@ export default class StoreFilterModal extends Component {
       <View style={styles.content}>
         {this.filterSectionList(sections[index])[0].list.map((item, index) => (
           <TouchableOpacity
-            key={index}
+            key={item.MERCHANDISE_TYPE_ID}
             style={styles.contentItem}
             // underlayColor={colors.green01}
           >
-            <Text style={styles.contentText}>{item}</Text>
+            <Text style={styles.contentText}>{item.MERCHANDISE_TYPE_NAME}</Text>
           </TouchableOpacity>
         ))}
       </View>
