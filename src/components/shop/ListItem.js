@@ -3,22 +3,24 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import { VW } from "../../constants";
 import colors from "../../styles/colors";
+import { STATIC_BASE } from "../../services";
 
 const DESC_WRAPPER_WIDTH = VW / 2;
 
 export default class ListItem extends Component {
   render() {
     const { gotoShopGood, data } = this.props;
-    const { _id, MERCHANDISE_NAME, BRIEF } = data;
+    const { _id, MERCHANDISE_NAME, BRIEF, PRICE, PICDEFAULT } = data;
+    const photo =
+      PICDEFAULT === ""
+        ? "https://dummyimage.com/300x200/04ccaa/fff"
+        : STATIC_BASE + PICDEFAULT;
     return (
       <TouchableOpacity
         style={styles.wrapper}
         onPress={() => gotoShopGood(data)}
       >
-        <Image
-          source={{ uri: "https://dummyimage.com/300x200/04ccaa/fff" }}
-          style={styles.image}
-        />
+        <Image source={{ uri: photo }} style={styles.image} />
         <View style={styles.right}>
           <View>
             <Text numberOfLines={2}>
@@ -26,7 +28,7 @@ export default class ListItem extends Component {
             </Text>
           </View>
           <View>
-            <Text style={styles.price}>￥889</Text>
+            <Text style={styles.price}>￥{PRICE}</Text>
             <Text style={styles.comment}>1222条评论</Text>
           </View>
         </View>

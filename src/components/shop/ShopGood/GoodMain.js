@@ -5,6 +5,7 @@ import Entypo from "react-native-vector-icons/Entypo";
 
 import { VW } from "../../../constants";
 import colors from "../../../styles/colors";
+import { STATIC_BASE } from "../../../services";
 
 const IMAGE_WIDTH = VW - 2 * 15;
 
@@ -16,16 +17,20 @@ export default class GoodMain extends Component {
       SHOP_ID,
       MERCHANDISE_NAME,
       BRIEF,
-      RECOMMENDED
+      RECOMMENDED,
+      PICDEFAULT,
+      PRICE
     } = product;
+
+    const photo =
+      PICDEFAULT === ""
+        ? "https://dummyimage.com/300x200/82d8d8/fff"
+        : STATIC_BASE + PICDEFAULT;
 
     return (
       <View style={styles.wrapper}>
         <View style={styles.imageWrapper}>
-          <Image
-            source={{ uri: "https://dummyimage.com/300x200/82d8d8/fff" }}
-            style={styles.image}
-          />
+          <Image source={{ uri: photo }} style={styles.image} />
         </View>
         <View style={styles.desc}>
           <View style={styles.left}>
@@ -44,7 +49,7 @@ export default class GoodMain extends Component {
 
         <View style={styles.price}>
           <Text style={styles.symbol}>¥</Text>
-          <Text style={styles.priceText}>2388.00</Text>
+          <Text style={styles.priceText}>{PRICE}</Text>
         </View>
 
         <View style={styles.selectPanel}>
@@ -112,7 +117,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: IMAGE_WIDTH,
-    height: IMAGE_WIDTH * 2 / 3
+    height: (IMAGE_WIDTH * 2) / 3
   },
   desc: {
     width: "100%",

@@ -4,39 +4,44 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { VW } from "../../constants";
 import colors from "../../styles/colors";
 // import recommendData from "../../data/recommend";
+import { STATIC_BASE } from "../../services";
 
 const RECOMMEND_IMAGE_WIDTH = (VW - 2 * 15 - 15) / 2;
-const RECOMMEND_IMAGE_HEIGHT = RECOMMEND_IMAGE_WIDTH * 2 / 3;
+const RECOMMEND_IMAGE_HEIGHT = (RECOMMEND_IMAGE_WIDTH * 2) / 3;
 
-const RecommendItem = ({ item, index, gotoShopGood }) => (
-  <View
-    style={[
-      styles.recommendWrapper,
-      { flexDirection: index % 2 === 0 ? "row" : "row-reverse" }
-    ]}
-  >
-    <Image
-      source={{ uri: "https://dummyimage.com/300x200/04ccaa/fff" }}
-      style={styles.recommendImage}
-    />
-    <View style={styles.sloganWrapper}>
-      <View style={styles.slogan}>
-        <Text numberOfLines={2} style={styles.sloganText}>
-          {item.MERCHANDISE_NAME}
+const RecommendItem = ({ item, index, gotoShopGood }) => {
+  const { PICDEFAULT, PRICE, BRIEF, MERCHANDISE_NAME } = item;
+  const photo =
+    PICDEFAULT === ""
+      ? "https://dummyimage.com/300x200/04ccaa/fff"
+      : STATIC_BASE + PICDEFAULT;
+  return (
+    <View
+      style={[
+        styles.recommendWrapper,
+        { flexDirection: index % 2 === 0 ? "row" : "row-reverse" }
+      ]}
+    >
+      <Image source={{ uri: photo }} style={styles.recommendImage} />
+      <View style={styles.sloganWrapper}>
+        <View style={styles.slogan}>
+          <Text numberOfLines={2} style={styles.sloganText}>
+            {MERCHANDISE_NAME}
+          </Text>
+        </View>
+        <Text numberOfLines={5} style={styles.desc}>
+          {BRIEF}
         </Text>
+        <TouchableOpacity
+          style={styles.buyWrapper}
+          onPress={() => gotoShopGood(item)}
+        >
+          <Text style={styles.buy}>立即选购</Text>
+        </TouchableOpacity>
       </View>
-      <Text numberOfLines={5} style={styles.desc}>
-        {item.BRIEF}
-      </Text>
-      <TouchableOpacity
-        style={styles.buyWrapper}
-        onPress={() => gotoShopGood(item)}
-      >
-        <Text style={styles.buy}>立即选购</Text>
-      </TouchableOpacity>
     </View>
-  </View>
-);
+  );
+};
 
 export default class Recommend extends Component {
   render() {
