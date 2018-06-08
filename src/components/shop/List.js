@@ -45,8 +45,24 @@ export default class List extends Component {
     }));
   };
 
+  loadAllSelectedTypeResults = async () => {
+    const response = await axiosInstance.get(
+      `shop/getShopTypeGoods/${this.props.selectedType}`
+    );
+    const products = response.data.goodsList;
+    this.setState({
+      products,
+      hasMore: false,
+      loading: false
+    });
+  };
+
   componentDidMount = () => {
-    this.loadResults(this.state.page, this.props.searchKey);
+    if (this.props.selectedType) {
+      this.loadAllSelectedTypeResults();
+    } else {
+      this.loadResults(this.state.page, this.props.searchKey);
+    }
   };
 
   _loadMore = () => {
@@ -71,7 +87,7 @@ export default class List extends Component {
           renderItem={({ item, index }) => (
             <ListItem data={item} gotoShopGood={this.props.gotoShopGood} />
           )}
-          keyExtractor={item => item._id}
+          keyExtractor={item => item.MERCHANDISE_ID}
           style={styles.flatlist}
         />
         {hasMore && (

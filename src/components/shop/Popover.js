@@ -11,7 +11,8 @@ export default class Popover extends Component {
       categories,
       position,
       width,
-      dividerColor
+      dividerColor,
+      onSelect
     } = this.props;
 
     const flag = categories.length - 1;
@@ -44,6 +45,7 @@ export default class Popover extends Component {
                 borderBottomWidth: 1
               }
             ]}
+            onPress={() => onSelect(item.id)}
           >
             <Text style={{ color, fontSize: size }}>{item.title}</Text>
           </TouchableOpacity>

@@ -62,7 +62,7 @@ export default class StoreFilterHeader extends Component {
         />
 
         <View style={{ marginRight: 10 }}>
-          <InputTag title="Test" />
+          <InputTag title="零食" />
         </View>
 
         <View style={styles.rightWrapper}>

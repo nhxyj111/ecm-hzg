@@ -22,11 +22,13 @@ export default class Shop extends Component {
     showPop: false,
     shop: {},
     recommends: [],
-    totalCount: 0
+    totalCount: 0,
+    types: [],
+    selectedType: null
   };
 
   _onTab = tabKey => {
-    this.setState({ tabKey });
+    this.setState({ tabKey, selectedType: null });
   };
 
   _gotoShopCard = () => {
@@ -55,12 +57,21 @@ export default class Shop extends Component {
     const { shopId } = navigation.state.params;
     const response = await axiosInstance.get(`getShopByShopid/${shopId}`);
     this.setState({ shop: response.data });
-    this.loadRecommend();
+    this.loadRecommend(shopId);
+    this.loadMerchandiseType(shopId);
   };
 
-  loadRecommend = async () => {
-    const { navigation } = this.props;
-    const { shopId } = navigation.state.params;
+  loadMerchandiseType = async shopId => {
+    const response = await axiosInstance.get(
+      `shop/getMerchandiseTypeByshopid/${shopId}`
+    );
+    const types = response.data;
+    this.setState({ types });
+  };
+
+  loadRecommend = async shopId => {
+    // const { navigation } = this.props;
+    // const { shopId } = navigation.state.params;
     const response = await axiosInstance.get(`getGoodsByShop/${shopId}`, {
       params: {
         currentPage: 1,
@@ -82,14 +93,25 @@ export default class Shop extends Component {
     }
   };
 
+  _onSelectType = selectedType => {
+    this.setState({ selectedType, tabKey: 1, showPop: false });
+  };
+
   render() {
-    const { tabKey, showPop } = this.state;
-    const { shop, recommends, totalCount } = this.state;
+    const {
+      shop,
+      recommends,
+      totalCount,
+      tabKey,
+      showPop,
+      types,
+      selectedType
+    } = this.state;
     return (
       <View style={styles.wrapper}>
         <View style={styles.header}>
           <Header goBack={this._goBack} shop={shop} onFilter={this._onFilter} />
-          <Tabbar onTab={this._onTab} totalCount={totalCount} />
+          <Tabbar onTab={this._onTab} totalCount={totalCount} tabKey={tabKey} />
         </View>
         <ScrollView
           style={styles.scrollview}
@@ -106,6 +128,7 @@ export default class Shop extends Component {
               shopId={shop.SHOP_ID}
               searchKey=""
               gotoShopGood={this._gotoShopGood}
+              selectedType={selectedType}
             />
           )}
         </ScrollView>
@@ -124,12 +147,12 @@ export default class Shop extends Component {
             width={120}
             color={colors.lightBlack}
             size={14}
-            categories={[
-              { id: 1, title: "电竞外设" },
-              { id: 2, title: "家用小电器" },
-              { id: 3, title: "进口零食" }
-            ]}
+            categories={types.map(type => ({
+              id: type.MERCHANDISE_TYPE_ID,
+              title: type.MERCHANDISE_TYPE_NAME
+            }))}
             dividerColor={colors.gray05}
+            onSelect={this._onSelectType}
           />
         )}
       </View>

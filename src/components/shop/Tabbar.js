@@ -5,19 +5,16 @@ import EntypoIcon from "react-native-vector-icons/Entypo";
 import colors from "../../styles/colors";
 
 export default class Tabbar extends Component {
-  state = {
-    key: 0
-  };
+  // state = {
+  //   key: 0
+  // };
 
-  _onPress = key => {
-    this.setState({ key }, () => {
-      this.props.onTab(key);
-    });
-  };
+  // _onPress = key => {
+  //   this.props.onTab(key);
+  // };
 
   render() {
-    const { key } = this.state;
-    const { totalCount } = this.props;
+    const { totalCount, tabKey, onTab } = this.props;
 
     const TABBAR_CONFIG = [
       {
@@ -45,18 +42,18 @@ export default class Tabbar extends Component {
     return (
       <View style={styles.wrapper}>
         <TouchableOpacity
-          style={[styles.tab, key === 0 && styles.selectedBorder]}
-          onPress={() => this._onPress(0)}
+          style={[styles.tab, tabKey === 0 && styles.selectedBorder]}
+          onPress={() => onTab(0)}
         >
           <EntypoIcon
             name="shop"
             size={24}
-            color={key === 0 ? colors.pink : colors.lightBlack}
+            color={tabKey === 0 ? colors.pink : colors.lightBlack}
           />
           <Text
             style={[
               styles.text,
-              { color: key === 0 ? colors.pink : colors.lightBlack }
+              { color: tabKey === 0 ? colors.pink : colors.lightBlack }
             ]}
           >
             店铺首页
@@ -66,14 +63,14 @@ export default class Tabbar extends Component {
         {TABBAR_CONFIG.map(item => (
           <TouchableOpacity
             key={item.key}
-            style={[styles.tab, item.key === key && styles.selectedBorder]}
-            onPress={() => this._onPress(item.key)}
+            style={[styles.tab, item.key === tabKey && styles.selectedBorder]}
+            onPress={() => onTab(item.key)}
           >
             <Text
               style={[
                 styles.number,
                 {
-                  color: key === item.key ? colors.pink : colors.lightBlack
+                  color: tabKey === item.key ? colors.pink : colors.lightBlack
                 }
               ]}
             >
@@ -83,7 +80,7 @@ export default class Tabbar extends Component {
               style={[
                 styles.text,
                 {
-                  color: key === item.key ? colors.pink : colors.lightBlack
+                  color: tabKey === item.key ? colors.pink : colors.lightBlack
                 }
               ]}
             >

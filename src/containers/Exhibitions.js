@@ -66,6 +66,7 @@ export default class Exhibitions extends Component {
     const news = newsResponse.data.data;
     this.setState({ news, expoList: expoList.data.data });
   };
+
   _searchByCity = selectedCity => {
     this.setState(
       () => ({ showCitySelector: false }),
