@@ -6,9 +6,13 @@ import colors from "../styles/colors";
 
 export default class InputTag extends Component {
   render() {
-    const { title, close } = this.props;
+    const { title, close, onPress, show } = this.props;
     return (
-      <TouchableOpacity onPress={close} style={styles.wrapper}>
+      <TouchableOpacity
+        onPress={close}
+        style={[styles.wrapper, { display: show ? "flex" : "none" }]}
+        onPress={onPress}
+      >
         <Text style={styles.title}>{title}</Text>
         <EvilIcons name="close-o" size={18} color={colors.lightBlack} />
       </TouchableOpacity>
@@ -23,7 +27,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightPink,
     borderRadius: 2,
     paddingHorizontal: 4,
-    paddingVertical: 2
+    paddingVertical: 2,
+    marginRight: 14
   },
   title: {
     color: colors.lightBlack,

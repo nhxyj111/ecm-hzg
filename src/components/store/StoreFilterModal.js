@@ -75,6 +75,11 @@ export default class StoreFilterModal extends Component {
             key={item.MERCHANDISE_TYPE_ID}
             style={styles.contentItem}
             // underlayColor={colors.green01}
+            onPress={() => {
+              this.props.navigation.navigate("Store", {
+                type: item
+              });
+            }}
           >
             <Text style={styles.contentText}>{item.MERCHANDISE_TYPE_NAME}</Text>
           </TouchableOpacity>

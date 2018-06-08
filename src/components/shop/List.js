@@ -58,10 +58,20 @@ export default class List extends Component {
   };
 
   componentDidMount = () => {
-    if (this.props.selectedType) {
+    this._load(this.props);
+  };
+
+  _load = props => {
+    if (props.selectedType) {
       this.loadAllSelectedTypeResults();
     } else {
-      this.loadResults(this.state.page, this.props.searchKey);
+      this.loadResults(this.state.page, props.searchKey);
+    }
+  };
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.selectedType !== this.props.selectedType) {
+      this._load(nextProps);
     }
   };
 

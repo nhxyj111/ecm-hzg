@@ -20,7 +20,7 @@ export default class StoreListItem extends Component {
     return (
       <TouchableOpacity style={styles.wrapper} onPress={() => onPress(product)}>
         <Image source={{ uri: photo }} style={styles.image} />
-        <Text style={styles.desc}>
+        <Text style={styles.desc} numberOfLines={2}>
           {MERCHANDISE_NAME}/{BRIEF}
         </Text>
         <Text style={styles.price}>¥ {PRICE}</Text>

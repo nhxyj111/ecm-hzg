@@ -16,12 +16,28 @@ import colors from "../../styles/colors";
 
 export default class StoreFilterHeader extends Component {
   state = {
-    value: ""
+    value: "",
+    showTag: false
   };
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.typeId !== this.props.typeId) {
+      this.setState({ showTag: !!nextProps.typeId });
+      this.props.onFilter(this.state.value, nextProps.typeId);
+    }
+  };
+
+  _cleanTag = () => {
+    this.setState({ value: "", showTag: false }, () => {
+      this.props.onFilter(this.state.value, undefined);
+    });
+  };
+
   render() {
     // const { routeName } = this.props.navigation;
     // console.log(JSON.stringify(this.props.navigation));
-    const { showBackIcon, navigation, onFilter } = this.props;
+    const { showBackIcon, navigation, onFilter, typeId, typeName } = this.props;
+    const { showTag } = this.state;
 
     return (
       <View style={styles.wrapper}>
@@ -61,9 +77,7 @@ export default class StoreFilterHeader extends Component {
           }}
         />
 
-        <View style={{ marginRight: 10 }}>
-          <InputTag title="零食" />
-        </View>
+        <InputTag title={typeName} onPress={this._cleanTag} show={showTag} />
 
         <View style={styles.rightWrapper}>
           <TouchableOpacity>

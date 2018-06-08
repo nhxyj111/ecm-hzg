@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 
 import colors from "../../styles/colors";
 
-export default class Tabbar extends Component {
+export default class Tabbar extends PureComponent {
   // state = {
   //   key: 0
   // };
@@ -24,17 +24,17 @@ export default class Tabbar extends Component {
       },
       {
         key: 2,
-        number: 9,
+        number: 0,
         title: "热销"
       },
       {
         key: 3,
-        number: 9,
+        number: 0,
         title: "上新"
       },
       {
         key: 4,
-        number: 9,
+        number: 0,
         title: "店铺动态"
       }
     ];

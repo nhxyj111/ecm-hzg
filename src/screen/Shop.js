@@ -94,7 +94,7 @@ export default class Shop extends Component {
   };
 
   _onSelectType = selectedType => {
-    this.setState({ selectedType, tabKey: 1, showPop: false });
+    this.setState(() => ({ selectedType, tabKey: 1, showPop: false }));
   };
 
   render() {
