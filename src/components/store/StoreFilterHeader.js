@@ -73,7 +73,7 @@ export default class StoreFilterHeader extends Component {
           onChangeText={value => this.setState({ value })}
           value={this.state.value}
           onSubmitEditing={() => {
-            onFilter(this.state.value);
+            onFilter(this.state.value, typeId);
           }}
         />
 

@@ -68,7 +68,6 @@ export default class Store extends Component {
     //   "willFocus",
     //   payload => {
     //     console.debug("willFocus", payload.state);
-    //     // alert(navigation.getParam("type"));
     //   }
     // );
     this.loadResults(this.state.page, "");
