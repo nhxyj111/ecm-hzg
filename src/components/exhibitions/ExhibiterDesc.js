@@ -23,13 +23,13 @@ export default class ExhibiterDesc extends Component {
       CONTACT,
       PHONE,
       MOBILE,
-      BANNERURL,
+      BG_IMAGE,
       INTRODUCE,
       LOGO_URL
     } = exhibiter;
 
-    const photo = BANNERURL
-      ? STATIC_BASE + BANNERURL
+    const photo = BG_IMAGE
+      ? STATIC_BASE + BG_IMAGE
       : "https://dummyimage.com/400x700/96aa12/fff";
 
     return (

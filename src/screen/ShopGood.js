@@ -58,9 +58,9 @@ export default class ShopGood extends Component {
   _gotoShop = id => {
     const { navigation } = this.props;
     const {
-      product: { SHOP_ID }
+      product: { SHOP_ID, SHOPID } // TODO:
     } = navigation.state.params;
-    this.props.navigation.navigate("Shop", { shopId: SHOP_ID });
+    this.props.navigation.navigate("Shop", { shopId: SHOP_ID || SHOPID }); // TODO:
   };
 
   _renderTabContent = () => {

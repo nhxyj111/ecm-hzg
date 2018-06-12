@@ -38,6 +38,7 @@ export default class Exhibitions extends Component {
     showCitySelector: false,
     showDatePicker: false,
     expoList: [],
+    expoList2: [],
     key: "",
     news: []
   };
@@ -53,9 +54,10 @@ export default class Exhibitions extends Component {
   };
 
   componentDidMount = async () => {
-    const expoList = await axiosInstance.get("searchExpo");
+    const expoListResponse = await axiosInstance.get("searchExpo");
     // console.log(JSON.stringify(expoList.data));
     // this.setState({ expoList: expoList.data.data });
+    const expoList = expoListResponse.data.data;
 
     const newsResponse = await axiosInstance.get("searchExpoMsg", {
       params: {
@@ -63,8 +65,28 @@ export default class Exhibitions extends Component {
         currentPage: 1
       }
     });
+
     const news = newsResponse.data.data;
-    this.setState({ news, expoList: expoList.data.data });
+
+    const adsResponse = await axiosInstance.get(
+      "shopad/getAdList?channels=7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27&city_id=&pageSize=13&key="
+    );
+    const ads = adsResponse.data.adList;
+
+    // TODO:
+    if (ads.length > 0 && expoList.length > 3) {
+      this.setState({
+        expoList: [expoList[0], ads[0], ...expoList.slice(1)],
+        news,
+        expoList2: expoList
+      });
+    } else {
+      this.setState({
+        expoList,
+        news,
+        expoList2: expoList
+      });
+    }
   };
 
   _searchByCity = selectedCity => {
@@ -111,6 +133,7 @@ export default class Exhibitions extends Component {
       showCitySelector,
       showDatePicker,
       expoList,
+      expoList2,
       key,
       news
     } = this.state;
@@ -148,7 +171,10 @@ export default class Exhibitions extends Component {
 
           <Text style={styles.heading}>附近城市展会</Text>
           <View style={styles.exhibitions}>
-            <HotExhibitionList exhibitions={expoList} navigation={navigation} />
+            <HotExhibitionList
+              exhibitions={expoList2}
+              navigation={navigation}
+            />
           </View>
 
           <View style={styles.headingWrapper}>

@@ -102,6 +102,13 @@ export default class Store extends Component {
     );
   };
 
+  // shouldComponentUpdate = () => {
+  //   const { navigation } = this.props;
+  //   const type = navigation.getParam("type", {});
+  //   console.log(type);
+  //   return false;
+  // };
+
   render() {
     const { products, loading, hasMore, totalCount, page } = this.state;
     const { navigation } = this.props;

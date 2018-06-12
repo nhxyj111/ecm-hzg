@@ -24,7 +24,7 @@ export default class ExhibitionCard extends Component {
       START_TIME,
       END_TIME,
       SPONSORBY,
-      POSTURL
+      BG_IMAGE
     } = expo;
     const startTime = START_TIME.split("T")
       .join(" ")
@@ -32,8 +32,8 @@ export default class ExhibitionCard extends Component {
     const endTime = END_TIME.split("T")
       .join(" ")
       .split(".")[0];
-    const postUrl = POSTURL
-      ? STATIC_BASE + POSTURL
+    const postUrl = BG_IMAGE
+      ? STATIC_BASE + BG_IMAGE
       : "https://dummyimage.com/400x700/96aa12/fff";
     return (
       <ImageBackground

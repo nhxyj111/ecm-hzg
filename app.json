@@ -3,6 +3,7 @@
     "sdkVersion": "27.0.0",
     "name": "会展购",
     "icon": "./logo.png",
+    "orientation": "portrait",
     "splash": {
       "image": "./logo.png",
       "backgroundColor": "#333333",

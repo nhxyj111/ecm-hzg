@@ -11,6 +11,9 @@ import {
 import FeatherIcon from "react-native-vector-icons/Feather";
 
 import colors from "../../styles/colors";
+import { STATIC_BASE } from "../../services";
+
+const DEFAULT_BG_IMAGE = "https://dummyimage.com/300x200/000020/fff";
 
 export default class Header extends Component {
   state = {
@@ -19,12 +22,14 @@ export default class Header extends Component {
 
   render() {
     const { goBack, shop, onFilter } = this.props;
-    const { SHOP_NAME, VIEW_NUM } = shop;
+    const { SHOP_NAME, VIEW_NUM, BG_IMAGE } = shop;
+    const photo = BG_IMAGE ? STATIC_BASE + BG_IMAGE : DEFAULT_BG_IMAGE;
     return (
       <ImageBackground
         style={styles.wrapper}
-        source={{ uri: "https://dummyimage.com/300x200/000020/fff" }}
+        source={{ uri: photo }}
         resizeMode="cover"
+        blurRadius={2}
         // borderRadius={3}
       >
         <View style={styles.searchBox}>
