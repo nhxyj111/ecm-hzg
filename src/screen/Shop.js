@@ -56,7 +56,7 @@ export default class Shop extends Component {
     const { navigation } = this.props;
     const { shopId } = navigation.state.params;
     const response = await axiosInstance.get(`getShopByShopid/${shopId}`);
-    this.setState({ shop: response.data });
+    this.setState(() => ({ shop: response.data }));
     this.loadRecommend(shopId);
     this.loadMerchandiseType(shopId);
   };
@@ -80,7 +80,7 @@ export default class Shop extends Component {
     });
     const recommends = response.data.data;
     const totalCount = response.data.totalCount;
-    this.setState({ recommends, totalCount });
+    this.setState(() => ({ recommends, totalCount }));
   };
 
   _onFilter = searchKey => {
@@ -122,6 +122,7 @@ export default class Shop extends Component {
             <Recommend
               recommends={recommends}
               gotoShopGood={this._gotoShopGood}
+              shop={shop}
             />
           ) : (
             <List

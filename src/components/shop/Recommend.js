@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ImageBackground
+} from "react-native";
 
 import { VW } from "../../constants";
 import colors from "../../styles/colors";
@@ -45,13 +52,34 @@ const RecommendItem = ({ item, index, gotoShopGood }) => {
 
 export default class Recommend extends Component {
   render() {
-    const { recommends, gotoShopGood } = this.props;
+    const { recommends, gotoShopGood, shop } = this.props;
+    const { BANNER_URL } = shop;
+
+    // TODO:
+    const photo = BANNER_URL
+      ? `${STATIC_BASE}${BANNER_URL}`
+      : "https://dummyimage.com/300x200/Fad3ff/fff";
     return (
       <View style={styles.wrapper}>
-        <Image
-          source={{ uri: "https://dummyimage.com/300x200/Fad3ff/fff" }}
+        {/* <Image source={{ uri: photo }} style={styles.image} /> */}
+        {/* <Image source={require("../../images/618.png")} style={styles.image} /> */}
+        <ImageBackground
           style={styles.image}
-        />
+          source={{ uri: photo }}
+          resizeMode="cover"
+          // borderRadius={5}
+        >
+          <Text
+            style={{ fontSize: 54, fontWeight: "bold", color: colors.gray02 }}
+          >
+            6.18
+          </Text>
+          <Text
+            style={{ fontSize: 48, fontWeight: "bold", color: colors.gray02 }}
+          >
+            年中大优惠
+          </Text>
+        </ImageBackground>
 
         <View style={styles.recommend}>
           {recommends.map((item, index) => (
@@ -73,7 +101,9 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 200,
-    marginTop: 5
+    marginTop: 5,
+    justifyContent: "center",
+    alignItems: "center"
   },
   recommend: {
     paddingHorizontal: 15,

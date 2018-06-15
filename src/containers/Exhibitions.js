@@ -54,7 +54,12 @@ export default class Exhibitions extends Component {
   };
 
   componentDidMount = async () => {
-    const expoListResponse = await axiosInstance.get("searchExpo");
+    const expoListResponse = await axiosInstance.get("searchExpo", {
+      params: {
+        pageSize: 6,
+        currentPage: 1
+      }
+    });
     // console.log(JSON.stringify(expoList.data));
     // this.setState({ expoList: expoList.data.data });
     const expoList = expoListResponse.data.data;
@@ -68,25 +73,31 @@ export default class Exhibitions extends Component {
 
     const news = newsResponse.data.data;
 
-    const adsResponse = await axiosInstance.get(
-      "shopad/getAdList?channels=7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27&city_id=&pageSize=13&key="
-    );
-    const ads = adsResponse.data.adList;
-
     // TODO:
-    if (ads.length > 0 && expoList.length > 3) {
-      this.setState({
-        expoList: [expoList[0], ads[0], ...expoList.slice(1)],
-        news,
-        expoList2: expoList
-      });
-    } else {
-      this.setState({
-        expoList,
-        news,
-        expoList2: expoList
-      });
-    }
+    // const adsResponse = await axiosInstance.get(
+    //   "shopad/getAdList?channels=7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27&city_id=&pageSize=13&key="
+    // );
+    // const ads = adsResponse.data.adList;
+
+    // if (ads.length > 0 && expoList.length > 3) {
+    //   this.setState({
+    //     expoList: [expoList[0], ads[0], ...expoList.slice(1)],
+    //     news,
+    //     expoList2: expoList
+    //   });
+    // } else {
+    //   this.setState({
+    //     expoList,
+    //     news,
+    //     expoList2: expoList
+    //   });
+    // }
+
+    this.setState({
+      expoList,
+      news,
+      expoList2: [...expoList].reverse()
+    });
   };
 
   _searchByCity = selectedCity => {

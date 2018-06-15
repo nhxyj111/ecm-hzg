@@ -71,7 +71,7 @@ export default class Exhibiter extends Component {
       `shop/getShopIntro/${exhibiter.SHOP_ID}`
     );
     const timelineData = response.data.expo;
-    this.setState({ timelineData });
+    this.setState(() => ({ timelineData }));
   };
 
   // _moreProducts = () => {

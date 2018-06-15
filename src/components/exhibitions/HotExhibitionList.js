@@ -30,28 +30,28 @@ export default class HotExhibitionList extends Component {
           ? `${STATIC_BASE}${LOGO}`
           : defaultPhoto;
 
-      let logo = "";
-      const LOGO_NAME = index % 6;
-      switch (LOGO_NAME) {
-        case 0:
-          logo = require("../../data/logo/0.png");
-          break;
-        case 1:
-          logo = require("../../data/logo/1.png");
-          break;
-        case 2:
-          logo = require("../../data/logo/2.png");
-          break;
-        case 3:
-          logo = require("../../data/logo/3.png");
-          break;
-        case 4:
-          logo = require("../../data/logo/4.png");
-          break;
-        case 5:
-          logo = require("../../data/logo/5.png");
-          break;
-      }
+      // let logo = "";
+      // const LOGO_NAME = index % 6;
+      // switch (LOGO_NAME) {
+      //   case 0:
+      //     logo = require("../../data/logo/0.png");
+      //     break;
+      //   case 1:
+      //     logo = require("../../data/logo/1.png");
+      //     break;
+      //   case 2:
+      //     logo = require("../../data/logo/2.png");
+      //     break;
+      //   case 3:
+      //     logo = require("../../data/logo/3.png");
+      //     break;
+      //   case 4:
+      //     logo = require("../../data/logo/4.png");
+      //     break;
+      //   case 5:
+      //     logo = require("../../data/logo/5.png");
+      //     break;
+      // }
 
       return (
         <TouchableHighlight
@@ -73,9 +73,17 @@ export default class HotExhibitionList extends Component {
             <Image
               style={styles.image}
               // source={{ uri: photo }} // TODO:
-              source={logo}
-              resizeMode="contain"
+              source={{ uri: photo }}
+              resizeMode="cover"
             />
+
+            {/* {AD_LINK && (
+              <View style={styles.adTag}>
+                <Text style={{ color: colors.cartRed, fontSize: 12 }}>
+                  广告
+                </Text>
+              </View>
+            )} */}
 
             {AD_LINK ? (
               <View style={styles.adTag}>
@@ -135,7 +143,8 @@ const styles = StyleSheet.create({
     marginLeft: CARD_GAP,
     borderWidth: 2,
     borderColor: colors.gray05,
-    borderRadius: 2
+    borderRadius: 2,
+    backgroundColor: colors.white
   },
   image: {
     flex: 1,

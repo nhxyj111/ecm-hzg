@@ -54,10 +54,10 @@ export default class Header extends Component {
 
         <View style={styles.desc}>
           <View style={styles.left}>
-            <Image
+            {/* <Image
               source={{ uri: "https://dummyimage.com/300x200/FF63ff/fff" }}
               style={styles.logo}
-            />
+            /> */}
             <View style={styles.nameWrapper}>
               <View style={styles.name}>
                 <Text style={styles.nameText}>{SHOP_NAME}</Text>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end"
   },
   nameWrapper: {
-    marginLeft: 5,
+    marginLeft: 20,
     alignSelf: "flex-end"
   },
   name: {},

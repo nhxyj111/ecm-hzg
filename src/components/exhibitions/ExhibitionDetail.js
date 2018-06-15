@@ -39,7 +39,7 @@ export default class ExhibitionDetail extends Component {
     page: 1
   };
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     const { navigation } = this.props;
     const { expo } = navigation.state.params;
     this.setState({ expo }, () => {
